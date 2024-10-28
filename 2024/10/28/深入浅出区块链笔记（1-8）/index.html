@@ -1,0 +1,361 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>深入浅出区块链笔记（1-8 区块链基础知识） | Hoshino Bunny‘s Blog</title><meta name="author" content="HoshinoBunny"><meta name="copyright" content="HoshinoBunny"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="深入浅出区块链笔记（1-8 区块链基础知识）区块链是什么？ 区块链首先是一个分布式网络。 区块链可以帮助多个节点达成共识去记录和token相关的事情。 区块链可以帮助所有人无门槛地构建属于自己的小经济系统。  让所有的独立节点想要达成共识去做同一件事情，是区块链在技术上首先要解决的问题，这就是我们常说的共识过程，也是“去中心化”这个概念的直接来源。 区块链共识机制共识机制是区块链是核心的组成要素之">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入浅出区块链笔记（1-8 区块链基础知识）">
+<meta property="og:url" content="http://example.com/2024/10/28/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hoshino Bunny‘s Blog">
+<meta property="og:description" content="深入浅出区块链笔记（1-8 区块链基础知识）区块链是什么？ 区块链首先是一个分布式网络。 区块链可以帮助多个节点达成共识去记录和token相关的事情。 区块链可以帮助所有人无门槛地构建属于自己的小经济系统。  让所有的独立节点想要达成共识去做同一件事情，是区块链在技术上首先要解决的问题，这就是我们常说的共识过程，也是“去中心化”这个概念的直接来源。 区块链共识机制共识机制是区块链是核心的组成要素之">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/xszhangxiaocuo/picBed/blob/master/picBed/hoshino.png?raw=true">
+<meta property="article:published_time" content="2024-10-28T09:06:57.000Z">
+<meta property="article:modified_time" content="2024-10-28T09:07:23.977Z">
+<meta property="article:author" content="HoshinoBunny">
+<meta property="article:tag" content="区块链">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/xszhangxiaocuo/picBed/blob/master/picBed/hoshino.png?raw=true"><link rel="shortcut icon" href="https://raw.githubusercontent.com/xszhangxiaocuo/picBed/master/picBed/hoshino48x48.ico"><link rel="canonical" href="http://example.com/2024/10/28/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深入浅出区块链笔记（1-8 区块链基础知识）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-28 17:07:23'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://github.com/xszhangxiaocuo/picBed/blob/master/picBed/lycoris.png?raw=true);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hoshino Bunny‘s Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">深入浅出区块链笔记（1-8 区块链基础知识）</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">深入浅出区块链笔记（1-8 区块链基础知识）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-10-28T09:06:57.000Z" title="发表于 2024-10-28 17:06:57">2024-10-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-28T09:07:23.977Z" title="更新于 2024-10-28 17:07:23">2024-10-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="深入浅出区块链笔记（1-8-区块链基础知识）"><a href="#深入浅出区块链笔记（1-8-区块链基础知识）" class="headerlink" title="深入浅出区块链笔记（1-8 区块链基础知识）"></a>深入浅出区块链笔记（1-8 区块链基础知识）</h1><h3 id="区块链是什么？"><a href="#区块链是什么？" class="headerlink" title="区块链是什么？"></a>区块链是什么？</h3><ul>
+<li>区块链首先是一个分布式网络。</li>
+<li>区块链可以帮助多个节点达成共识去记录和token相关的事情。</li>
+<li>区块链可以帮助所有人无门槛地构建属于自己的小经济系统。</li>
+</ul>
+<p>让所有的独立节点想要达成共识去做同一件事情，是区块链在技术上首先要解决的问题，这就是我们常说的共识过程，也是“去中心化”这个概念的直接来源。</p>
+<h3 id="区块链共识机制"><a href="#区块链共识机制" class="headerlink" title="区块链共识机制"></a>区块链共识机制</h3><p>共识机制是区块链是核心的组成要素之一，它决定了区块链的业务吞吐量、交易速度、不可篡改性、准入门槛等等，是最为关键的技术要素之一。</p>
+<p>共识机制主要解决了两个问题：</p>
+<ol>
+<li>谁有权利记账。</li>
+<li>作弊问题。</li>
+</ol>
+<p>在比特币社区，“共识”（consensus）这个词已经跳出了技术的范畴。通常人们在表述一个比特币上的问题时，共识的内涵还包括比特币的使用者、开发者、矿工来达成社区共识的部分，所以“共识”这个词在区块链领域还有些“民主”的味道，不单单是技术领域的“共识”。</p>
+<h3 id="最经典的入门型共识机制：PoW工作量证明"><a href="#最经典的入门型共识机制：PoW工作量证明" class="headerlink" title="最经典的入门型共识机制：PoW工作量证明"></a>最经典的入门型共识机制：PoW工作量证明</h3><p>PoW（Proof of Work）工作量证明可以解决以上两个问题。</p>
+<p>在PoW机制中，计算资源（又称算力）是决定记账权的唯一因素。与之对应的就是计算难度。</p>
+<p>计算难度又称作挖矿难度，计算难度是区块链尾了控制产生答案的速度，比如平均10分钟就有一个答案产生和平均2分钟就有一个答案产生，很明显这是两种不同的计算难度且后者难度更小。</p>
+<h5 id="PoW如何避免作弊者？"><a href="#PoW如何避免作弊者？" class="headerlink" title="PoW如何避免作弊者？"></a>PoW如何避免作弊者？</h5><p>大啊安就是计算资源（算力）。一个作弊者如果想要篡改信封里的交易，首先要获得记账权，也就是装信封的权利。而记账权的唯一因素只有计算资源的大小，如果想粗篡改交易，只能投入大量的计算资源与整个系统中其他所有人进行对抗，这是十分困难的，尤其是在整个系统有一定基础计算资源的情况下。</p>
+<p>PoW 中一个有趣的设计是激励机制，在 PoW 共识机制下，我们假设所有参与者都是理性的，理性的意思就是单纯逐利，不考虑家庭、爱好等其他因素。有了理性的前提，PoW 共识机制会给每个诚实的记账者予以奖励，这个设计可以抗击作弊收益的问题。</p>
+<p>理性的人如果作弊、篡改账本肯定需要投入成本，也就是计算资源，收益是篡改账本获得的收益减去投入成本，这个收益往往小于诚实计算所获得的收益。所以，作弊者在作弊过程中投入的计算资源过大，反而得不偿失。</p>
+<h5 id="解决双花攻击"><a href="#解决双花攻击" class="headerlink" title="解决双花攻击"></a>解决双花攻击</h5><p>双花攻击是指一个代币被花费了两次，这在任意的区块链系统中是不被允许的。如果避免了双花问题，基本就能避免上述作弊中收益过大的问题，因为攻击者首先要窃取到你的私钥，同时又能控制了你的计算资源（算力）。</p>
+<p>所有记账节点都会遵循以下两条规则：</p>
+<p>规则一：一个代币如果已经被花费，那么会被标记成已花费，如果再次接收到这个代币被花费</p>
+<p>的请求，那么记账节点会拒绝打包这笔交易；</p>
+<p>规则二：如果同时接收到两个信封，这两个信封中装的两笔交易出现了一个代币被花费了两次的情况，这种情况也就是我们所说的分叉（Fork），那么选择挖矿难度比较大的那个信封。</p>
+<p>规则一避免了未确认的交易出现双花，规则二基本避免已经确认的交易中（信封中）的双花问题。</p>
+<p>假设作弊者的计算资源（算力）占整个系统的 30%，那么连续两次获得记账权的概率是 9%，看起来作弊的可能性还是挺高的，如果是连续 6 次获得记账权呢？概率直降到万分之七。</p>
+<p>在比特币中，这个 6 也就是 6 次确认，表示连续 6 个块过去了，如果我的交易没有被双花的话，那么它被篡改的可能性将越来越小，最后变得几乎不可能被篡改。这也是区块链不可被篡改说法的由来。</p>
+<p>如果任何作弊者花了大量的成本获取了系统 30% 的计算资源（算力），最后只有万分之七的概率获得篡改的可能性，比起作弊，还不如诚实记账的收益高。</p>
+<h3 id="区块链的数字货币应用方向"><a href="#区块链的数字货币应用方向" class="headerlink" title="区块链的数字货币应用方向"></a>区块链的数字货币应用方向</h3><p>数字货币是区块链的第一大应用类型，可以简单理解为一种无主权、社区自治的货币形式。数字货币的运行则通常是靠社区自治的，所谓社区自治，是指用户、维护者、开发者三种角色共同决定数字货币的发展。</p>
+<h5 id="数字货币的特点"><a href="#数字货币的特点" class="headerlink" title="数字货币的特点"></a>数字货币的特点</h5><ul>
+<li><p>总量透明公开。数字货币的发行是在项目创建之初，是白皮书事先就规定好了的，白皮书通常是一个区块链项目公开发布的一种阐述性文档，其中简述了项目的宗旨和愿景以及设计蓝图。在白皮书中，这个项目总共发行多少数字货币，投资者、用户、矿工能够获得多少也都是事先分配好的。数字货币的总量也分为两种，一种是总量设上限的，另外一种是不设上限的。</p>
+</li>
+<li><p>数字货币缓慢释放。数字货币在分配好不同角色的额度之后，往往不是一下子就能发行完毕的，通常在矿工的那部分是需要靠“挖”才能出来的，这也就是前面我们所说的挖矿，挖矿为数字货币的缓慢释放提供了一种方法。</p>
+</li>
+<li><p>代码执行规则。由于我们在白皮书中规定好了总量和数字货币释放的机制，白皮书的内容会</p>
+<p>成为整个社区的基础共识，所以在项目的主网上线之后，数字货币的释放不再是人为控制，而是在代码层面体现，代码将负责控制数字货币的释放，这里去除了人为操作的因素。</p>
+<p>基本上，所有公有区块链项目都会具备以上特性，可见数字货币和区块链的关系十分紧密。另外，在区块链领域，一个项目的开始运营，就伴随着一个新的数字货币的产生，这个数字货币会成为这个项目的基础代币，也有可能会派生出其他货币。区块链在数字货币上的应用，其“去中心化”“不可篡改”的特性相较于其他，就显得更具有划时代的意义。</p>
+</li>
+</ul>
+<h3 id="比较成熟的应用类型"><a href="#比较成熟的应用类型" class="headerlink" title="比较成熟的应用类型"></a>比较成熟的应用类型</h3><p>任何区块创始项目如果想要活下去，就要先解决钱的问题，也就是融资问题。其实融资模式本身就是一个很成熟的应用——ICO（Initial Coin Offering）。</p>
+<p>ICO的中文名是首次代币发行，又称为区块链众筹，这是一种新型的融资模式，投资者可以用手中的比特币，或者其它代币投到一些区块链创始项目。一个区块链项目发起之后，如果选择发起 ICO，相比传统融资渠道，项目方会在很短的时间内融到资，且白皮书中规定好的代币将一次性地投放到投资者手里，并在短时间内上线数字资产交易平台。</p>
+<p>数字资产交易平台也具有高流动性，这种高流动性为早期投资者提供了退出条件，这样投资者的投资周期大大缩短，并且可以快速抽身。</p>
+<p>另外一个高产虚拟资产的领域——游戏领域，也是区块链同化的对象。</p>
+<p>除了虚拟资产，实体资产也可以用区块链进行应用，但是目前遇到的难题基本都是实体资产如何与链上区块链的数据进行一一映射。这涉及了数据公证等等环节，实施起来比中心化应用困难很多，比较典型的例子是区块链与供应链结合，解决信息流、资金流、物流，“三流”合一的问题。除了实体资产和虚拟资产，区块链最简单直接的应用还有公证公示领域，不过这里仅仅用到了区块链“不可篡改”的特性。</p>
+<h3 id="数字货币的概念"><a href="#数字货币的概念" class="headerlink" title="数字货币的概念"></a>数字货币的概念</h3><p>数字货币通常是国内的叫法，在国外，它一般称作“加密货币”。数字货币听起来比加密货币更抽象一点，“数字”旨在表现它不同于传统货币的行为，即它可以通过“数字”表现更多自定义的行为。</p>
+<p>数字货币通常是基于区块链技术、在全球范围内公开发行的、并且没有任何国家政府背书的虚拟货币，这种虚拟货币具有“去信任”、“点对点”、“公开记账”、“不可篡改”等特征。</p>
+<h5 id="电子货币"><a href="#电子货币" class="headerlink" title="电子货币"></a>电子货币</h5><p>电子货币和数字货币一样都是无形的，但是电子货币其实就是将法币电子化，例如第三方支付平台，银行卡电子现金，银行大小额支付系统等等。它只是以电子的方式记录了原来法币的账目，从本质上来说，它们仍然需要在多个中心化系统中进行稽核、对账，“电子”本身并没有成为金融的一部分。</p>
+<h5 id="虚拟货币"><a href="#虚拟货币" class="headerlink" title="虚拟货币"></a>虚拟货币</h5><p>虚拟货币通常是由非金融机构发行的非实体货币，大致分为三类。</p>
+<p>综合来看，与法币的“有形”对应，虚拟货币更多地体现在它的“虚拟无形”上，随着互联网的发展，虚拟货币本身也在逐渐发展，从而诞生了更多新的模式与机遇。</p>
+<p>第一类比如游戏代币，通常不与实体经济发生联系。例如在《王者荣耀》这款游戏中，如果你想要得到新的道具，就必须有足够的游戏代币（钻石和点券），这种虚拟货币还有个特征就是封闭性，即只能在这款游戏中使用。</p>
+<p>第二类是积分类，它可以与实体经济发生联系，比如常旅客积分，超市礼品卡，这种虚拟货币也有个特征叫做单向性，即只能流入，而不能流出。</p>
+<p>第三类自然就是我们主要讲的数字货币（加密货币）了，比特币便是其中典型。</p>
+<h5 id="数字货币"><a href="#数字货币" class="headerlink" title="数字货币"></a>数字货币</h5><p>数字货币一般是指公有区块链平台底下的基础代币，该代币被记录在由密码学保证的一套公开账本上，与传统货币不同的是，由于去中心化以及可编程等特性，此种货币具有可自定义行为的属性。</p>
+<p>在比特币中，我们可以定义多重签名交易来实现真正意义上的“由多人共同掌管的机构型账户”。</p>
+<h3 id="传统货币与数字货币"><a href="#传统货币与数字货币" class="headerlink" title="传统货币与数字货币"></a>传统货币与数字货币</h3><h5 id="实名制vs匿名制"><a href="#实名制vs匿名制" class="headerlink" title="实名制vs匿名制"></a>实名制vs匿名制</h5><p>传统货币在支付过程中，除了现金，其他任何方式基本都或多或少地保留了交易者的信息，无论你是个人还是机构，运营商都可以使用这些交易数据来跟踪你的活动。</p>
+<p>而在数字货币领域，这件事就无足轻重了，目前大部分数字货币具有假匿名性，即化名性，所以并不会被查到你自己的私人资料。</p>
+<p>同时，由于区块链上未提供 KYC（Know Your Customer）功能，也就是充分了解你的客户，对账户持有人的强化审查，所以让监管者很难追踪到交易者的信息，也让数字货币成为了黑市交易的温床。</p>
+<p>这样的缺点主要是因为不少公链代币设计中没有加入身份的概念，不过这只是算是一个需求，而不是数字货币本身存在的缺陷。</p>
+<h5 id="中心化vs点对点"><a href="#中心化vs点对点" class="headerlink" title="中心化vs点对点"></a>中心化vs点对点</h5><p>数字货币的发行主体通常是项目发起方，并且会在白皮书中定义好数字货币的发行过程；在主网上线以后，所有的代币会根据一开始设计好的发行过程缓慢释放到市场，这个过程其实就是大家喜闻乐见的“挖矿”过程。</p>
+<p>所以在主网上线以后，即使作为项目发起方，也几乎很难有权利再次修改发行机制，所有人只能以提案的形式递交到社区进行讨论，讨论的最终结果决定了能否被再次修改。</p>
+<p>这个过程其实与民主选举的过程很相似，而在信用货币领域，发行主体通常是央行，央行可以通过货币的政策进行宏观调控，从某种意义上来说，央行模式是中心化的极致体现，而数字货币则属于点对点机制的体现。</p>
+<h5 id="托管型安全性vs自理型安全性"><a href="#托管型安全性vs自理型安全性" class="headerlink" title="托管型安全性vs自理型安全性"></a>托管型安全性vs自理型安全性</h5><p>由于数字货币的交易过程需要网络中每个节点的认可，且每一笔交易都被记录在区块链上，所以历史交易记录永远不用担心丢失或者被篡改。</p>
+<p>只要数字货币基础的加密算法不被攻破，并且保护好私钥，你的资产便是真正意义上、只属于你自己的资产。</p>
+<p>传统货币的交易过程最终是落到银行的，所以银行系统的安全性决定了传统货币在使用过程中的安全阈值，这也表示你的资产是托管在银行的。</p>
+<h5 id="国家内部流通vs广区域流通"><a href="#国家内部流通vs广区域流通" class="headerlink" title="国家内部流通vs广区域流通"></a>国家内部流通vs广区域流通</h5><p>传统货币是有主权的，通常只在主权国家范围内流通；数字货币目前却没有这样的限制，只要你能连上互联网，你就可以随时随地发送交易到任意地域。</p>
+<p>总结来看，数字货币目前也有很大风险，如今还没有比较完整规范的法律法规来约束数字货币的使用者，所以使用数字货币会有较高的法律与投资的风险。</p>
+<h5 id="数字货币的发行过程"><a href="#数字货币的发行过程" class="headerlink" title="数字货币的发行过程"></a>数字货币的发行过程</h5><p>比特币的发行过程是通过挖矿维持的，是依靠矿工挖矿产生比特币。相当于矿工自己就是一个小型的印钞机。</p>
+<p>矿工每挖出一个区块，会产生一个Coinbase 交易，这个 Coinbase 交易相当于凭空产生了币，矿工可以从 Coinbase 获得比特币，作为维护系统的奖励。</p>
+<p>Coinbase 的产出是每 4 年衰减一半的，第一个 4 年是挖出每个块 50 个比特币，第二个 4年的周期就是挖出每块产出 25 个。</p>
+<p>以上逻辑是比特币白皮书和比特币代码规定好的，所有比特币的参与者可以进行验证。并且根据以上逻辑，我们可以画出如下的发行曲线。</p>
+<p><img src="https://raw.githubusercontent.com/xszhangxiaocuo/picBed/master/picBed/317b20dd77564021d767b0d32e4a138a%E3%80%90%E6%B5%B7%E9%87%8F%E8%B5%84%E6%BA%90%EF%BC%9A666java.com%E3%80%91.png" alt="317b20dd77564021d767b0d32e4a138a【海量资源：666java.com】"></p>
+<p>所以数字货币的发行过程可以认为是一个区块链项目的核心利益分配的过程，也是一个社区激励的过程，如何把有限的代币派发给愿意为项目付出的社区人，是考量一个区块链项目运营成熟度的重要指标。</p>
+<h3 id="了解数字货币行情"><a href="#了解数字货币行情" class="headerlink" title="了解数字货币行情"></a>了解数字货币行情</h3><p>数字货币作为区块链的第一大应用，拥有巨大的市场，你可以从<code>coinmarketcap.com </code>上了解几乎所有数字货币的概况。</p>
+<p>如果想了解数字货币行情，可以打开 feixiaohao.com 进行查看，也可以手机下载<code>MyToken</code>或<code>币看</code>。</p>
+<p>这两个 App 的使用方法与股票行情软件非常相似，上面几乎可以查询到所有已经“上市”的数字货币的实时价格与成交量信息。</p>
+<h3 id="什么是数字货币钱包"><a href="#什么是数字货币钱包" class="headerlink" title="什么是数字货币钱包"></a>什么是数字货币钱包</h3><p>数字货币钱包是最贴近用户的区块链程序，数字货币钱包会可以帮你管理数字货币私钥，发送交易，可以显示你的交易历史记录。从用户功能的角度，数字货币钱包比较接近我们日常使用的钱包，它帮助你管理纸币、硬币、信用卡借记卡。</p>
+<p>数字货币钱包作为数字货币的载体，从技术角度来看，数字货币钱包分为三种类型。</p>
+<ol>
+<li>全节点钱包。全节点钱包是指官方发行的一种数字货币钱包版本，这个版本包含了完整的功能需求，挖矿、发送交易、查询交易记录、管理私钥。</li>
+<li>SPV 轻钱包（Simplified Payment Verification）。轻钱包为了用户体验，牺牲了全节点的部分功能，属于全节点钱包的简化版，如挖矿功能、查询交易功能就没有。</li>
+<li>中心化资产托管钱包。这种钱包其实是第三方服务商帮助你打理你的数字货币，找一个中介托管你的数字货币，比较典型的有<code>blockchain.info</code>。</li>
+</ol>
+<p>以上的第 1 种和第 2 种会在各个数字货币的官网出现，属于真正意义上的数字货币钱包，1相比 2 而言，安全性要更高。</p>
+<h5 id="比特币的Electrum钱包"><a href="#比特币的Electrum钱包" class="headerlink" title="比特币的Electrum钱包"></a>比特币的Electrum钱包</h5><p>Electrum钱包主界面：</p>
+<p><img src="https://raw.githubusercontent.com/xszhangxiaocuo/picBed/master/picBed/5b533c24abc4241bb0eab8bbacf586c2%E3%80%90%E6%B5%B7%E9%87%8F%E8%B5%84%E6%BA%90%EF%BC%9A666java.com%E3%80%91.png" alt="5b533c24abc4241bb0eab8bbacf586c2【海量资源：666java.com】"></p>
+<p>对于钱包程序来说，最重要信息的就是当前区块高度了，区块高度表示了当前你所在区块的序号，序号体现了你是否更新到了最新区块，而最新区块则决定了你能否查询到自己的交易。即规定了你所有交易账单的起始位置。</p>
+<p>我们以 Electrum 钱包为例，点击圆圈中的控件，出现对话框，红框数字就代表了你本地钱包的块高。</p>
+<p><img src="https://raw.githubusercontent.com/xszhangxiaocuo/picBed/master/picBed/b5611702a84a4202d42f36d5f54a312f%E3%80%90%E6%B5%B7%E9%87%8F%E8%B5%84%E6%BA%90%EF%BC%9A666java.com%E3%80%91.png" alt="b5611702a84a4202d42f36d5f54a312f【海量资源：666java.com】"></p>
+<h5 id="钱包文件与钱包账户"><a href="#钱包文件与钱包账户" class="headerlink" title="钱包文件与钱包账户"></a>钱包文件与钱包账户</h5><p>当你第一次安装好钱包以后，使用钱包的第一件事情就是创建账户（或者钱包文件）。一般全节点钱包都支持多账户，尽管有些钱包有账户的概念，有些没有，在逻辑上也可以使用钱包文件替代账户这个概念。</p>
+<p>例如 Electrum 轻钱包采用的是钱包文件，某些全节点钱包采用的是账户。我们用某个币种的钱包为例子，点击创建账户以后，填好用户名密码，会得到如下信息：</p>
+<p><img src="https://raw.githubusercontent.com/xszhangxiaocuo/picBed/master/picBed/0969b7a52091bf4ac8b02fe775f9a94c%E3%80%90%E6%B5%B7%E9%87%8F%E8%B5%84%E6%BA%90%EF%BC%9A666java.com%E3%80%91.png" alt="0969b7a52091bf4ac8b02fe775f9a94c【海量资源：666java.com】"></p>
+<p>红字部分又称助记词。这种助记词是为了主私钥服务的，主私钥其实是一串非常长的字母和数字组合，无论是人脑记或者笔记都是非常不容易识别的，容易弄错，助记词的有序组成与主私钥是一一对应的。</p>
+<p>如果记录保存好了助记词（红字部分），即使钱包丢失或者被破坏也没有关系，用户可以在其他钱包中导入助记词，依然可以操作资产。所以说在区块链的世界，主私钥和助记词是操作资产的唯一途径，如果丢失，那么资产就丢失，不存在忘记助记词还能找回资产这回事。</p>
+<p>我们来看看比特币的助记词，我们点击左上角【文件】-【新建 &#x2F; 恢复】，一直下一步直到出现 12 个单词（暂时不必理会每一步中的选项，不同选项代表不同格式的钱包文件），这 12个单词也是助记词，只要保存好了助记词，你的比特币可以在任意（标准版）比特币钱包导入。</p>
+<p>比特币钱包助记词：</p>
+<p><img src="https://raw.githubusercontent.com/xszhangxiaocuo/picBed/master/picBed/eaccfa66fb354fea95b5ba07c147c943%E3%80%90%E6%B5%B7%E9%87%8F%E8%B5%84%E6%BA%90%EF%BC%9A666java.com%E3%80%91.png" alt="eaccfa66fb354fea95b5ba07c147c943【海量资源：666java.com】"></p>
+<h5 id="钱包地址"><a href="#钱包地址" class="headerlink" title="钱包地址"></a>钱包地址</h5><p>钱包地址对应银行卡的卡号。在币圈，地址其实也分很多种，我们只介绍最简单直观的——支付地址（Payment Address），也就是我们现在要说的钱包地址。</p>
+<p>在比特币中，地址是以 1 开头的一串字母和数字的组合，字母区分大小写。</p>
+<p>比特币钱包地址：</p>
+<p><img src="https://raw.githubusercontent.com/xszhangxiaocuo/picBed/master/picBed/ec42cd834525c70dc599e5523a061e94%E3%80%90%E6%B5%B7%E9%87%8F%E8%B5%84%E6%BA%90%EF%BC%9A666java.com%E3%80%91.png" alt="ec42cd834525c70dc599e5523a061e94【海量资源：666java.com】"></p>
+<h5 id="获取代币"><a href="#获取代币" class="headerlink" title="获取代币"></a>获取代币</h5><p>获取代币一般有两种方式：挖矿和上数字货币交易所购买。</p>
+<p>目前不存在人民币对数字货币的场内交易平台，所以想用人民币购买数字货币只能选择场外交易，比较有名的平台有<code>coincola.com</code>。</p>
+<p>你如果具有投资热情，可以继续挖掘“coinmarketcap”中绿框内的选项：</p>
+<p><img src="https://raw.githubusercontent.com/xszhangxiaocuo/picBed/master/picBed/d3092544b948ae4c6083c920584b1748%E3%80%90%E6%B5%B7%E9%87%8F%E8%B5%84%E6%BA%90%EF%BC%9A666java.com%E3%80%91.png" alt="d3092544b948ae4c6083c920584b1748【海量资源：666java.com】"></p>
+<h5 id="区块链交易"><a href="#区块链交易" class="headerlink" title="区块链交易"></a>区块链交易</h5><p>到账的过程就是产生一笔区块链交易的过程，一般交易所都会提供 TXID，就是交易哈希，供用户查询，TXID 代表了这个区块链上某一个唯一的交易，也就是类似于咱们去银行转账后提供的流水单号。</p>
+<p>我们可以根据 TXID 可以上区块浏览器（专门用于查询交易的工具链接）上查询该币交易，比如某一笔比特币交易：<a target="_blank" rel="noopener" href="https://blockchain.info/tx/6e64c2098b84b04a0d9f61a60d5bc8f5f80f37e19f3ad9c39bfe419db422b33c">https://blockchain.info/tx/6e64c2098b84b04a0d9f61a60d5bc8f5f80f37e19f3ad9c39bfe419db422b33c</a></p>
+<p>网址<code>https://blockchain.info</code>后面这一长串就是 TXID，下图是这一笔比特币交易的详细信息。</p>
+<p><img src="https://raw.githubusercontent.com/xszhangxiaocuo/picBed/master/picBed/0b09574c87a1a5b88dcdb9106d93e4cc%E3%80%90%E6%B5%B7%E9%87%8F%E8%B5%84%E6%BA%90%EF%BC%9A666java.com%E3%80%91.png" alt="0b09574c87a1a5b88dcdb9106d93e4cc【海量资源：666java.com】"></p>
+<h5 id="发送代币给别人"><a href="#发送代币给别人" class="headerlink" title="发送代币给别人"></a>发送代币给别人</h5><p>如果要把代币发送给别人，需要对方提供钱包地址，这和银行转账需要别人提供银行卡号的道理一样。</p>
+<p><img src="https://raw.githubusercontent.com/xszhangxiaocuo/picBed/master/picBed/61d8854376d9b06ab8e98b29c2216385%E3%80%90%E6%B5%B7%E9%87%8F%E8%B5%84%E6%BA%90%EF%BC%9A666java.com%E3%80%91.png" alt="61d8854376d9b06ab8e98b29c2216385【海量资源：666java.com】"></p>
+<p>在填写好表单点击<code>确认转移</code>后，钱包程序将为你生成一笔区块链交易并广播出去，大约等待 1 分钟就会被打包进区块，这个交易在任意的区块链浏览器上可以查询得到，我们可以使用另外一个区块浏览器进行查询：<a target="_blank" rel="noopener" href="https://explorer.mvs.org/#!/tx/b3eb07276dbff703ecf9e4180a2bd8e58db346e55439ef831efcbbd958726a0c">https://explorer.mvs.org/#!/tx/b3eb07276dbff703ecf9e4180a2bd8e58db346e55439ef831efcbbd958726a0c</a></p>
+<p>这个区块链浏览器与上面一个区块浏览器不是同一个，但是都可以查询相同的交易，因为他们同属同一个主网（mainnet, 相对应的是测试网 testnet）。各大交易所的充值功能，其实就是从自己的钱包转账到交易所的钱包地址。</p>
+<h3 id="区块链是不是万能的？"><a href="#区块链是不是万能的？" class="headerlink" title="区块链是不是万能的？"></a>区块链是不是万能的？</h3><p>区块链本身也属于分布式系统，分布式系统有哪些局限、约束，区块链一样也有。</p>
+<p>区块链领域有个说法叫做<code>不可能三角</code>，意思是说区块链的<code>去中心化</code>,<code>安全</code>,<code>环保</code>三个要素不可能同时全部满足。</p>
+<p>在分布式领域有个著名的CAP定理。</p>
+<p>在 CAP 中，Consistency 是一致性，表示同样数据在分布式系统中所有地方都是被复制成相同；Availability 是可用性，表示所有在分布式系统活跃的节点都能够处理操作且能响应查询；Partition tolerance 是分区容忍性，表示不同节点之间数据同步有意外情况产生时，能够容错。</p>
+<p>一般情况下，CAP 理论认为你不能同时拥有上述三种，只能同时选择两种。所以，当我们应用到区块链上时，可以明显地发现区块链其实是一个 AP 系统，尤其在 A 这个指标上，也就是可用性做得非常好，所以相应地，C 就会降低，反映到具体系统中的交易吞吐量上，自然会也会降低。</p>
+<p>当我们在分区容忍性和一致性中做取舍的时候，如果强调<code>不可篡改</code>,<code>去中心化</code>这两个特性，就会明显感觉到区块链跟不上大吞吐量的业务。</p>
+<p>所以理解了以上内容，我们在做技术选型时，如果去中心化不是强需求，还是建议使用中心化的解决方案。</p>
+<h3 id="去中心化是不是区块链唯一的评价标准？"><a href="#去中心化是不是区块链唯一的评价标准？" class="headerlink" title="去中心化是不是区块链唯一的评价标准？"></a>去中心化是不是区块链唯一的评价标准？</h3><p>自区块链发展至今，“中心化”和“去中心化”的争论就一直存在。</p>
+<p>支持去中心化的观点认为：区块链的初衷就是去中心化，所以也衍生出一条准则：“凡是没有做好去中心化指标的系统都不是区块链”。持有这样观点的人通常都是技术出身，或多或少都有些理想主义的极客情怀，这一点本来是无可厚非的，但市场是逐利的，情怀其实常常并没有办法变现。</p>
+<p>所以，这导致的最直接结果就是：秉持这种去中心化原则会让区块链的落地过程异常缓慢。</p>
+<p>持有“去中心化是唯一准则”这样的观点，往往也会误导刚刚入门的业务和产品相关的人员，误以为去中心化是区块链产品的一条评价标准。</p>
+<p>其实并不是这样，去中心化只是一个公有区块链应当具备的基本特性，但是我们衍生到区块链应用层面的时候，其实去中心化往往并不能契合到一个公司的业务上，所以我在这里提倡：当我们在思考区块链的解决方案时，还是应当以需求为第一导向。</p>
+<p>事实上，我们在讨论去中心化的时候，更多是夹杂了对强势的不满，这其实可以转化成“对服务者进行监督”的思路，一味地强调去中心化可能会陷入舍本逐末的尴尬境地，我们一定要看需求是什么，再去选择要不要。</p>
+<p>换句话说，任何情况下，人与人之间必然存在信息不对称和认知不对称的问题，任何应用都会存在信息提供者和信息消费者这两种角色。</p>
+<p>这是由人类社会结构决定的，妄图消除这两种角色之间的差异是非常难的。所以应用的“去中心化”要问运营者和消费者，而不是空喊口号。</p>
+<p>有个常提及的词叫做<code>赋能</code>，被赋于能力的角色始终处于被动地位的，我们可以把区块链看做新型的赋能工具，至于是不是去中心化，设计过程中要看具体的应用场景，实施过程最终取决于消费者。</p>
+<h3 id="联盟链为什么没有公有链普及？"><a href="#联盟链为什么没有公有链普及？" class="headerlink" title="联盟链为什么没有公有链普及？"></a>联盟链为什么没有公有链普及？</h3><p>所谓联盟链，就是这个区块链具有准入许可，不像公链，任何人都可以随时进入，准入许可意味着候选节点进入区块链时，需要得到已经在网络中的节点的许可，所以联盟链也叫做许可链。联盟链的节点数通常不多，维护成本相比公链要低。</p>
+<p>造成联盟链不普及的原因，有以下三种。</p>
+<p>第一是观察者偏差，因为 <code>To B</code> 的业务往往是商务合作的形式，并不直接进入大家的视野，实际上有很多大型机构已经尝试，或者已经部分落地了的联盟链业务。</p>
+<p>第二是联盟链往往会遇到政策和监管要求，与公链相比，实施起来条条框框太多了，发挥的空间有限。</p>
+<p>第三是联盟链表面上是一个技术问题，本质上是一个博弈问题。你往往需要设计一个业务模型，使得所有的博弈趋于均衡稳定，但是这又非常困难，我们无法一概而论。</p>
+<p>总不能每做一块业务还要搞个形式化验证吧，并且联盟链无论是应用生态还是技术迭代都会比公链缓慢。所以整体上看，联盟链的应用范围仍然不及公链广泛。</p>
+<h3 id="主流区块链项目"><a href="#主流区块链项目" class="headerlink" title="主流区块链项目"></a>主流区块链项目</h3><h5 id="比特币"><a href="#比特币" class="headerlink" title="比特币"></a>比特币</h5><p>总体来看，比特币的市值和交易量远远超过其他区块链项目。</p>
+<p>比特币的发布时间为 2009 年 1 月 9 号，预计它的挖矿可以一直持续到 2140 年，发行总量收敛到 2100 万。比特币的出块时间是 10 分钟，出块时间是指全网平均产生一个区块的时间间隔。</p>
+<p>比特币是所有数字资产的始祖，这带来的效果就是：比特币的公众认可度非常高，纵然面临着矿池中心化的问题，但是公众依然非常信任比特币这种资产。</p>
+<p>比特币曾经面临过区块容量不足的问题，但随着隔离见证的生效，网络拥堵的问题缓解了很多。</p>
+<h5 id="以太坊"><a href="#以太坊" class="headerlink" title="以太坊"></a>以太坊</h5><p>以太坊是一个区块链应用平台，它的极大创新在于它提供了<code>智能合约</code>这种可以自定义业务逻辑的工具，智能合约是一种可编程的合约，合约是由用户编写并且部署到区块链上的。</p>
+<p>以太坊的优势是为全世界的开发者们提供了一种开发工具，这种工具让所有人都能释放出巨大的创造力，所以基本上可以看成：只要是有一定技术基础的开发者，通过智能合约可以随时为以太坊贡献内容。</p>
+<p>这形成了一种良性循环，开发者使用智能合约的时候，发现的问题提交给以太坊开发者社区，社区改进智能合约的缺陷，新的开发者基于智能合约开发多样性的工具包，这种核心开发者与社区互动的良性循环是以太坊生态最重要的一部分。</p>
+<p>以太坊的口号是“世界计算机”，从这句口号里，可见它野心的大小。在 2016 年的时候，以太坊的市值大约是比特币的十分之一，在 2017 年，这个数字已经达到四分之一。</p>
+<p>以太坊在 2014 年开始众筹，2015 年 3 月份正式运行，它采取的共识机制是 PoW，但根据核心团队公布的方案，后期会逐渐迁移到 PoS 共识算法。以太坊的总发行量是：6000 万+1872 万 &#x2F; 年，目前的区块时间是 12 秒。</p>
+<p>同时我们从以太坊社区可以看到，以太坊绝大部分开发流程和智能合约都已经形成行业标准，</p>
+<p>比如常见的 ERC20 代币标准，ERC725 身份标准。</p>
+<p>而 ERC20 代币标准，则为智能合约指明了主要的业务方向：数字资产，有的叫智能资产，它们的含义差不多。以太坊 2017 价格大幅上涨，最直接的原因就是：ERC20 代币成为事实意义上的区块链标准资产。</p>
+<h5 id="瑞波币"><a href="#瑞波币" class="headerlink" title="瑞波币"></a>瑞波币</h5><p>瑞波币（Ripple）是一个比较另类的区块链项目，因为从本质上来说，它更像是一种支付结算协议，瑞波币不需要挖矿，它是通过一种叫“Open Coin”的算法，提供瑞波协议共识来达到记账的目的。</p>
+<p>瑞波币旨在为全球跨境机构提供了高效率的支付过程，提供较好的全球支付体验。因为涉及了机构之间的资产转移，瑞波币被设计成需要准入许可才能进入瑞波的支付网络，这一点有些像我们所说的联盟链。</p>
+<p>瑞波团队掌握了一半以上的瑞波币，所以瑞波币面临的币价被操纵的问题很严重。如果你是一个技术极客，那么你可以略过该项目。如果你想创建一个有关支付结算的区块链项目，那么一定要研究瑞波币。</p>
+<h5 id="莱特币"><a href="#莱特币" class="headerlink" title="莱特币"></a>莱特币</h5><p>莱特币在技术上仅仅把比特币的挖矿算法修改成了 Scrypt 算法，Scrypt 算法是一个可参数化、可配置的挖矿算法，不过它依然没有防住专业矿机的出现。它的其他核心代码几乎与比特币保持一致。</p>
+<p>莱特币的崛起得益于良好的市场运作，从提供的功能来看，莱特币与比特币没有区别。那么说，为什么还要有莱特币呢？</p>
+<p>比特币扩容之争的核心焦点在是否使用“隔离见证”的方法，“隔离见证”虽然在比特币社区提出，但是第一个应用的地方是莱特币，即：莱特币作为比特币的先行者，它会替代比特币做一些具有实验性质的试运行。</p>
+<h5 id="比特现金"><a href="#比特现金" class="headerlink" title="比特现金"></a>比特现金</h5><p>与比特币相比，比特现金仅仅是从区块容量上高于</p>
+<p>比特币，其他技术上的区别并不是很大。</p>
+<p>比特现金的诞生要从比特币扩容之争开始谈起，由于比特币的区块容量是 1MB，随着用户增多，交易愈发拥堵。</p>
+<p>所以围绕着提升网络容量，社区内部发生了分歧，“支持隔离见证”与”支持直接扩大区块尺寸”分成了两派，这就是著名的扩容之争。</p>
+<p>比特币核心开发者们支持前者，矿工们支持后者，由于比特币核心开发者掌握了代码的控制权，但是矿工掌握了记账权，所以两权发生了分离，矿工索性一拍大腿，你不改代码，我花钱找人改，这就产生了比特现金。</p>
+<p>比特现金作为社区共识分裂的产物，体现了区块链开放共识的特点，你不支持我，我分分钟就可以独立出来。</p>
+<h5 id="Tether"><a href="#Tether" class="headerlink" title="Tether"></a>Tether</h5><p>Tether 也是一个特殊的区块链项目，它为所有区块链资产提供了法币（主要是美元）兑换网关。Tether 又称 USDT，言外之意就是和美元一对一锚定，用户存入多少美元，就会产生多少USDT 进入虚拟资产网络。USDT 可以直接在虚拟货币交易所与比特币等其他区块链资产进行交易。</p>
+<p>Tether 可以直接在二级市场流通，是数字货币交易市场重要的交易入口。另外，Tether 可能存在被冻结和没收的风险。</p>
+<h5 id="匿名性区块链项目"><a href="#匿名性区块链项目" class="headerlink" title="匿名性区块链项目"></a>匿名性区块链项目</h5><p>匿名性区块链项目是指：使用交易匿名技术，让公开可查询的交易内容变成私密的匿名性区块链项目。市值比较不错的有门罗币、达世币、Zcash 三种，它们分别使用了不同类型的匿名技术，为区块链技术的匿名特性发展做出了贡献。</p>
+<p>从需求上来看，这三种都是为了解决其他所有数字货币无法匿名的问题，因为从技术上看，比特币也好，以太坊也好，交易是可以被追踪的。</p>
+<p>所以以上三种区块链提供了不同程度的匿名，按照匿名程度分别是：达世币 &lt; 门罗币&lt;Zcash。从市场认可度来看，门罗币的匿名性最为人们所认可。</p>
+<h5 id="国内的公有链区块链项目"><a href="#国内的公有链区块链项目" class="headerlink" title="国内的公有链区块链项目"></a>国内的公有链区块链项目</h5><p>中国的公链项目不多，分别有 NEO、量子链、元界、公信宝、比原链。</p>
+<p>目前市值最高的是 NEO，NEO 的前身是小蚁，在经历了 2017 年初的市值低谷之后，NEO通过品牌重塑以及市场推广，目前已经稳居市值 Top10。</p>
+<p>NEO 主打的也是智能合约，不过相比以太坊，NEO 更有方向性，旨在通过智能合约塑造一个基于区块链的智能经济。NEO 的创始人达鸿飞，也是一个非常 Nice 的大叔。</p>
+<p>量子链是也是国内比较知名的区块链项目，它的市值稳居 Top20，与 NEO 不同的是，量子链完全支持以太坊智能合约，也就是说能在以太坊上运行的智能合约也能在量子链上运行。</p>
+<p>量子链的创始人是戴旭光，人称帅初，是一个不到 30 岁就登上福布斯的技术极客。</p>
+<p>元界在 2017 年初上线造成了一波市场轰动，元界是当时唯一一家既能提供数字货币交易平台服务，又能提供公链技术服务的技术团队，2017 上半年整个市场非常看好。</p>
+<p>随即创始人初夏虎基于元界发了两个代币，由于这两个代币的运作没有跟上，导致市场恶评不断，再经过 9.4 的一刀切式监管，元界项目坠入低谷。</p>
+<p>公信宝是比特股社区的开发者，将比特股的底层技术石墨烯技术改造成属于自己的公链项目，公信宝团队是一个靠谱的团队，市场价值也十分不错。</p>
+<p>比原链是巴比特社区创始人长铗发起的，比原链目前负责人是段新星，比原链也是一个致力于打造资产数字化，提供资产流通的一个公链平台。</p>
+<h3 id="相关网站"><a href="#相关网站" class="headerlink" title="相关网站"></a>相关网站</h3><p>OK 国际站：【<a target="_blank" rel="noopener" href="http://www.okex.com】/">www.okex.com】</a></p>
+<p>火币网国际站：【<a target="_blank" rel="noopener" href="http://www.huobi.pro】/">www.huobi.pro】</a></p>
+<p>币安：【<a target="_blank" rel="noopener" href="http://www.binance.com】/">www.binance.com】</a></p>
+<p>中比特国际站：【<a href="http://www.zb.com】中比特海外版：【www.exx.com】">www.zb.com】中比特海外版：【www.exx.com】</a></p>
+<p>比特儿海外版:【<a target="_blank" rel="noopener" href="http://www.gate.io】/">www.gate.io】</a></p>
+<p>比特时代海外版:【<a target="_blank" rel="noopener" href="http://www.aex.com】/">www.aex.com】</a></p>
+<p>元宝网海外版:【<a target="_blank" rel="noopener" href="http://www.bcex.ca】/">www.bcex.ca】</a></p>
+<p>聚币海外版:【<a target="_blank" rel="noopener" href="http://www.coinegg.com】/">www.coinegg.com】</a></p>
+<p>云币海外版:【<a target="_blank" rel="noopener" href="http://www.big.one】/">www.big.one】</a></p>
+<p>币久网海外版:【<a target="_blank" rel="noopener" href="http://www.cex.com】/">www.cex.com】</a></p>
+<p>币赢网:【<a target="_blank" rel="noopener" href="http://www.coinw.com】/">www.coinw.com】</a></p>
+<p>kex:【<a target="_blank" rel="noopener" href="http://www.kex.com】/">www.kex.com】</a></p>
+<p>国外交易平台</p>
+<p>Bitfinex:【<a target="_blank" rel="noopener" href="http://www.bitfinex.com】/">www.bitfinex.com】</a></p>
+<p>B 网:【<a target="_blank" rel="noopener" href="http://www.bittrex.com】/">www.bittrex.com】</a></p>
+<p>R 网:【<a target="_blank" rel="noopener" href="http://www.rightbtc.com】/">www.rightbtc.com】</a></p>
+<p>P 网:【<a target="_blank" rel="noopener" href="http://www.poloniex.com】/">www.poloniex.com】</a></p>
+<p>L 网:【liqui.io】</p>
+<p>H 网：【hashtoken.co】</p>
+<p>CEO：【<a href="http://www.bite.ceo】BTBT：【www.btbt.top】">www.bite.ceo】BTBT：【www.btbt.top】</a></p>
+<p>HitBTC:【hitbtc.com】</p>
+<p>bithumb:【<a target="_blank" rel="noopener" href="http://www.bithumb.com】/">www.bithumb.com】</a></p>
+<p>coincheck:【coincheck.com&#x2F;cn&#x2F;】</p>
+<p>bit-z:【<a target="_blank" rel="noopener" href="http://www.bit-z.com】/">www.bit-z.com】</a></p>
+<p>去中心化交易平台</p>
+<p>以德：【etherdelta.com】</p>
+<p>比特股：【bitshares.org&#x2F;wallet&#x2F;#】</p>
+<p>场外交易平台</p>
+<p>local：【localbitcoins.com&#x2F;zh-cn】</p>
+<p>可盈可乐：【<a target="_blank" rel="noopener" href="http://www.coincola.com/%E3%80%91">www.coincola.com/】</a></p>
+<p>比特币世界【<a target="_blank" rel="noopener" href="http://www.bitcoinworld.com/%E3%80%91">www.bitcoinworld.com/】</a></p>
+<p>元宝场外交易【<a target="_blank" rel="noopener" href="http://www.otc789.com/%E3%80%91">www.otc789.com/】</a></p>
+<p>电脑看行情网站</p>
+<p>非小号：【<a target="_blank" rel="noopener" href="http://www.feixiaohao.com】/">www.feixiaohao.com】</a></p>
+<p>手机看行情软件：mytoken，aicoin</p>
+<p>金色财经：【<a target="_blank" rel="noopener" href="http://www.jinse.com】/">www.jinse.com】</a></p>
+<p>巴比特：【<a target="_blank" rel="noopener" href="http://www.8btc.com】/">www.8btc.com】</a></p>
+<p>bitcoin86：【<a target="_blank" rel="noopener" href="http://www.bitcoin86.com】/">www.bitcoin86.com】</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">HoshinoBunny</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/10/28/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8%EF%BC%89/">http://example.com/2024/10/28/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Hoshino Bunny‘s Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a></div><div class="post-share"><div class="social-share" data-image="https://github.com/xszhangxiaocuo/picBed/blob/master/picBed/hoshino.png?raw=true" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2024/10/27/%E7%94%A8Go%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E2%80%94GoCache%209bd748b3e11942448bafb083dada9493/" title="用Go实现一个分布式缓存—GoCache"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">用Go实现一个分布式缓存—GoCache</div></div><div class="info-2"><div class="info-item-1">用Go实现一个分布式缓存—GoCache [!NOTE] 原项目链接：https://geektutu.com/post/geecache.html  什么是分布式缓存分布式缓存：指将应用系统和缓存组件进行分离的缓存机制，这样多个应用系统就可以共享一套缓存数据了，它的特点是共享缓存服务和可集群部署，为缓存系统提供了高可用的运行环境，以及缓存共享的程序运行机制。 分布式缓存系统是一个独立的缓存服务，与本地应用隔离，这使得多个应用系统之间可直接的共享缓存数据。目前分布式缓存系统已经成为微服务架构的重要组成部分。 分布式缓存的特性相对于本地应用缓存，分布式缓存具有如下特性: 高性能：当传统数据库面临大规模数据访问时，磁盘I&#x2F;O 往往成为性能瓶颈，从而导致过高的响应延迟。分布式缓存将高速内存作为数据对象的存储介质，数据以key&#x2F;value...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://github.com/xszhangxiaocuo/picBed/blob/master/picBed/hoshino.png?raw=true" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">HoshinoBunny</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xszhangxiaocuo"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xszhangxiaocuo" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zyj6659644@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8-%E5%8C%BA%E5%9D%97%E9%93%BE%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">深入浅出区块链笔记（1-8 区块链基础知识）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.0.1.</span> <span class="toc-text">区块链是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%B1%E8%AF%86%E6%9C%BA%E5%88%B6"><span class="toc-number">1.0.2.</span> <span class="toc-text">区块链共识机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E7%BB%8F%E5%85%B8%E7%9A%84%E5%85%A5%E9%97%A8%E5%9E%8B%E5%85%B1%E8%AF%86%E6%9C%BA%E5%88%B6%EF%BC%9APoW%E5%B7%A5%E4%BD%9C%E9%87%8F%E8%AF%81%E6%98%8E"><span class="toc-number">1.0.3.</span> <span class="toc-text">最经典的入门型共识机制：PoW工作量证明</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#PoW%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E4%BD%9C%E5%BC%8A%E8%80%85%EF%BC%9F"><span class="toc-number">1.0.3.0.1.</span> <span class="toc-text">PoW如何避免作弊者？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8F%8C%E8%8A%B1%E6%94%BB%E5%87%BB"><span class="toc-number">1.0.3.0.2.</span> <span class="toc-text">解决双花攻击</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81%E5%BA%94%E7%94%A8%E6%96%B9%E5%90%91"><span class="toc-number">1.0.4.</span> <span class="toc-text">区块链的数字货币应用方向</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.0.4.0.1.</span> <span class="toc-text">数字货币的特点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E6%88%90%E7%86%9F%E7%9A%84%E5%BA%94%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.0.5.</span> <span class="toc-text">比较成熟的应用类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.0.6.</span> <span class="toc-text">数字货币的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%B5%E5%AD%90%E8%B4%A7%E5%B8%81"><span class="toc-number">1.0.6.0.1.</span> <span class="toc-text">电子货币</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E8%B4%A7%E5%B8%81"><span class="toc-number">1.0.6.0.2.</span> <span class="toc-text">虚拟货币</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81"><span class="toc-number">1.0.6.0.3.</span> <span class="toc-text">数字货币</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E8%B4%A7%E5%B8%81%E4%B8%8E%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81"><span class="toc-number">1.0.7.</span> <span class="toc-text">传统货币与数字货币</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E5%90%8D%E5%88%B6vs%E5%8C%BF%E5%90%8D%E5%88%B6"><span class="toc-number">1.0.7.0.1.</span> <span class="toc-text">实名制vs匿名制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%AD%E5%BF%83%E5%8C%96vs%E7%82%B9%E5%AF%B9%E7%82%B9"><span class="toc-number">1.0.7.0.2.</span> <span class="toc-text">中心化vs点对点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%89%98%E7%AE%A1%E5%9E%8B%E5%AE%89%E5%85%A8%E6%80%A7vs%E8%87%AA%E7%90%86%E5%9E%8B%E5%AE%89%E5%85%A8%E6%80%A7"><span class="toc-number">1.0.7.0.3.</span> <span class="toc-text">托管型安全性vs自理型安全性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BD%E5%AE%B6%E5%86%85%E9%83%A8%E6%B5%81%E9%80%9Avs%E5%B9%BF%E5%8C%BA%E5%9F%9F%E6%B5%81%E9%80%9A"><span class="toc-number">1.0.7.0.4.</span> <span class="toc-text">国家内部流通vs广区域流通</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81%E7%9A%84%E5%8F%91%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-number">1.0.7.0.5.</span> <span class="toc-text">数字货币的发行过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%86%E8%A7%A3%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81%E8%A1%8C%E6%83%85"><span class="toc-number">1.0.8.</span> <span class="toc-text">了解数字货币行情</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81%E9%92%B1%E5%8C%85"><span class="toc-number">1.0.9.</span> <span class="toc-text">什么是数字货币钱包</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84Electrum%E9%92%B1%E5%8C%85"><span class="toc-number">1.0.9.0.1.</span> <span class="toc-text">比特币的Electrum钱包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%92%B1%E5%8C%85%E6%96%87%E4%BB%B6%E4%B8%8E%E9%92%B1%E5%8C%85%E8%B4%A6%E6%88%B7"><span class="toc-number">1.0.9.0.2.</span> <span class="toc-text">钱包文件与钱包账户</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%92%B1%E5%8C%85%E5%9C%B0%E5%9D%80"><span class="toc-number">1.0.9.0.3.</span> <span class="toc-text">钱包地址</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E4%BB%A3%E5%B8%81"><span class="toc-number">1.0.9.0.4.</span> <span class="toc-text">获取代币</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BA%A4%E6%98%93"><span class="toc-number">1.0.9.0.5.</span> <span class="toc-text">区块链交易</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E4%BB%A3%E5%B8%81%E7%BB%99%E5%88%AB%E4%BA%BA"><span class="toc-number">1.0.9.0.6.</span> <span class="toc-text">发送代币给别人</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E6%98%AF%E4%B8%8D%E6%98%AF%E4%B8%87%E8%83%BD%E7%9A%84%EF%BC%9F"><span class="toc-number">1.0.10.</span> <span class="toc-text">区块链是不是万能的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E6%98%AF%E4%B8%8D%E6%98%AF%E5%8C%BA%E5%9D%97%E9%93%BE%E5%94%AF%E4%B8%80%E7%9A%84%E8%AF%84%E4%BB%B7%E6%A0%87%E5%87%86%EF%BC%9F"><span class="toc-number">1.0.11.</span> <span class="toc-text">去中心化是不是区块链唯一的评价标准？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%94%E7%9B%9F%E9%93%BE%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B2%A1%E6%9C%89%E5%85%AC%E6%9C%89%E9%93%BE%E6%99%AE%E5%8F%8A%EF%BC%9F"><span class="toc-number">1.0.12.</span> <span class="toc-text">联盟链为什么没有公有链普及？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E6%B5%81%E5%8C%BA%E5%9D%97%E9%93%BE%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.0.13.</span> <span class="toc-text">主流区块链项目</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81"><span class="toc-number">1.0.13.0.1.</span> <span class="toc-text">比特币</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A"><span class="toc-number">1.0.13.0.2.</span> <span class="toc-text">以太坊</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%91%9E%E6%B3%A2%E5%B8%81"><span class="toc-number">1.0.13.0.3.</span> <span class="toc-text">瑞波币</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%8E%B1%E7%89%B9%E5%B8%81"><span class="toc-number">1.0.13.0.4.</span> <span class="toc-text">莱特币</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E7%8E%B0%E9%87%91"><span class="toc-number">1.0.13.0.5.</span> <span class="toc-text">比特现金</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Tether"><span class="toc-number">1.0.13.0.6.</span> <span class="toc-text">Tether</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E6%80%A7%E5%8C%BA%E5%9D%97%E9%93%BE%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.0.13.0.7.</span> <span class="toc-text">匿名性区块链项目</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BD%E5%86%85%E7%9A%84%E5%85%AC%E6%9C%89%E9%93%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.0.13.0.8.</span> <span class="toc-text">国内的公有链区块链项目</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E7%BD%91%E7%AB%99"><span class="toc-number">1.0.14.</span> <span class="toc-text">相关网站</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/28/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8%EF%BC%89/" title="深入浅出区块链笔记（1-8 区块链基础知识）">深入浅出区块链笔记（1-8 区块链基础知识）</a><time datetime="2024-10-28T09:06:57.000Z" title="发表于 2024-10-28 17:06:57">2024-10-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/27/%E7%94%A8Go%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E2%80%94GoCache%209bd748b3e11942448bafb083dada9493/" title="用Go实现一个分布式缓存—GoCache">用Go实现一个分布式缓存—GoCache</a><time datetime="2024-10-27T11:30:49.000Z" title="发表于 2024-10-27 19:30:49">2024-10-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/26/VMware%E5%85%8B%E9%9A%86%E5%90%8E%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%98%E5%9C%A8mac%E5%9C%B0%E5%9D%80%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98%200ad07e84d5c44aa4ac17822ed66e16b0/" title="VMware克隆后的虚拟机存在mac地址冲突问题">VMware克隆后的虚拟机存在mac地址冲突问题</a><time datetime="2024-10-26T11:30:49.000Z" title="发表于 2024-10-26 19:30:49">2024-10-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By HoshinoBunny</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
