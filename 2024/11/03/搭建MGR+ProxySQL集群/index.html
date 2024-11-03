@@ -1,0 +1,305 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>搭建MGR+ProxySQL集群 | Hoshino Bunny‘s Blog</title><meta name="author" content="HoshinoBunny"><meta name="copyright" content="HoshinoBunny"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="搭建MGR+ProxySQL集群系统配置 设置好ip地址、网关 修改hosts文件 修改主机名称 MySQL节点防火墙放行 3306 和 24901，ProxySQL放行6032和6033端口  MySQL配置master节点sudo cat  &gt;&gt; &#x2F;etc&#x2F;my.cnf &lt;&lt;-‘EOF’  设置插件路径 plugin_dir&#x3D;&#x2F;u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建MGR+ProxySQL集群">
+<meta property="og:url" content="http://example.com/2024/11/03/%E6%90%AD%E5%BB%BAMGR+ProxySQL%E9%9B%86%E7%BE%A4/index.html">
+<meta property="og:site_name" content="Hoshino Bunny‘s Blog">
+<meta property="og:description" content="搭建MGR+ProxySQL集群系统配置 设置好ip地址、网关 修改hosts文件 修改主机名称 MySQL节点防火墙放行 3306 和 24901，ProxySQL放行6032和6033端口  MySQL配置master节点sudo cat  &gt;&gt; &#x2F;etc&#x2F;my.cnf &lt;&lt;-‘EOF’  设置插件路径 plugin_dir&#x3D;&#x2F;u">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/xszhangxiaocuo/picBed/blob/master/picBed/hoshino.png?raw=true">
+<meta property="article:published_time" content="2024-11-03T13:29:41.000Z">
+<meta property="article:modified_time" content="2024-11-03T13:31:23.426Z">
+<meta property="article:author" content="HoshinoBunny">
+<meta property="article:tag" content="MySQL, 分布式集群, ProxySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/xszhangxiaocuo/picBed/blob/master/picBed/hoshino.png?raw=true"><link rel="shortcut icon" href="https://raw.githubusercontent.com/xszhangxiaocuo/picBed/master/picBed/hoshino48x48.ico"><link rel="canonical" href="http://example.com/2024/11/03/%E6%90%AD%E5%BB%BAMGR+ProxySQL%E9%9B%86%E7%BE%A4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '搭建MGR+ProxySQL集群',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-03 21:31:23'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://github.com/xszhangxiaocuo/picBed/blob/master/picBed/lycoris.png?raw=true);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hoshino Bunny‘s Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">搭建MGR+ProxySQL集群</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">搭建MGR+ProxySQL集群</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-03T13:29:41.000Z" title="发表于 2024-11-03 21:29:41">2024-11-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-03T13:31:23.426Z" title="更新于 2024-11-03 21:31:23">2024-11-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="搭建MGR-ProxySQL集群"><a href="#搭建MGR-ProxySQL集群" class="headerlink" title="搭建MGR+ProxySQL集群"></a>搭建MGR+ProxySQL集群</h1><h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><ul>
+<li>设置好ip地址、网关</li>
+<li>修改hosts文件</li>
+<li>修改主机名称</li>
+<li>MySQL节点防火墙放行 3306 和 24901，ProxySQL放行6032和6033端口</li>
+</ul>
+<h2 id="MySQL配置"><a href="#MySQL配置" class="headerlink" title="MySQL配置"></a>MySQL配置</h2><h3 id="master节点"><a href="#master节点" class="headerlink" title="master节点"></a>master节点</h3><p>sudo cat  &gt;&gt; &#x2F;etc&#x2F;my.cnf &lt;&lt;-‘EOF’</p>
+<ul>
+<li><p>设置插件路径</p>
+<p>plugin_dir&#x3D;&#x2F;usr&#x2F;lib64&#x2F;mysql&#x2F;plugin</p>
+</li>
+<li><p>服务器编号</p>
+<p>server_id&#x3D;1</p>
+</li>
+<li><p>打开binlog的 GTID 模式</p>
+<p>gtid_mode&#x3D;ON</p>
+<p>enforce_gitd_consistency&#x3D;ON</p>
+</li>
+<li><p>关闭binlog校验</p>
+<p>binlog_checksum&#x3D;NONE</p>
+</li>
+<li><p>定义事务期间哈希写入提取的算法，组复制模式下必须为 XXHASH64</p>
+<p>transaction_write_set_extraction&#x3D;XXHASH64</p>
+</li>
+<li><p>服务器所在复制组的名称，有效的 UUID，所有节点相同</p>
+<p>loose-group-replication_group_name&#x3D;”7093d4fa-4425-4c2f-849b-841b62f40a01”</p>
+</li>
+<li><p>确定服务器是否应该在服务器启动期间启动组复制</p>
+<p>loose-group_replication_start_on_boot&#x3D;OFF</p>
+</li>
+<li><p>为复制组其他成员提供的网络地址，指定为”主机:端口”的格式化字符串，此处端口为24901</p>
+<p>loose-group_replication_local_address&#x3D;”n0:24901”</p>
+</li>
+<li><p>建立新组成员到组的连接组成员列表</p>
+<p>loose-group_replication_group_seeds&#x3D;”n0:24901,n1:24901,n2:24901”</p>
+</li>
+<li><p>配置此服务器为引导组，此选项必须仅在一台服务器上设置，仅第一次或启动组时打开。成功引导组启动后，置为关闭</p>
+<p>loose-group_replication_bootstrap_group&#x3D;OFF</p>
+</li>
+</ul>
+<p>EOF</p>
+<ul>
+<li>启动MySQL服务器</li>
+</ul>
+<p>​		systemctl start mysqld</p>
+<h3 id="slave节点"><a href="#slave节点" class="headerlink" title="slave节点"></a>slave节点</h3><ul>
+<li><p>设置插件路径</p>
+<p>plugin_dir&#x3D;&#x2F;usr&#x2F;lib64&#x2F;mysql&#x2F;plugin</p>
+</li>
+<li><p>服务器编号</p>
+<p>server_id&#x3D;2</p>
+</li>
+<li><p>打开binlog的 GTID 模式</p>
+<p>gtid_mode&#x3D;ON</p>
+<p>enforce_gitd_consistency&#x3D;ON</p>
+</li>
+<li><p>关闭binlog校验</p>
+<p>binlog_checksum&#x3D;NONE</p>
+</li>
+<li><p>此参数决定master节点到slave节点的请求是否基于RSA密钥对的密码交换所需的公钥</p>
+<p>loose-group_replication_recovery_get_public_key&#x3D;ON</p>
+</li>
+<li><p>服务器所在复制组的名称，有效的 UUID，所有节点相同</p>
+<p>loose-group-replication_group_name&#x3D;”7093d4fa-4425-4c2f-849b-841b62f40a01”</p>
+</li>
+<li><p>确定服务器是否应该在服务器启动期间启动组复制</p>
+<p>loose-group_replication_start_on_boot&#x3D;OFF</p>
+</li>
+<li><p>为复制组其他成员提供的网络地址，指定为”主机:端口”的格式化字符串，此处端口为24901</p>
+<p>loose-group_replication_local_address&#x3D;”n1:24901”</p>
+</li>
+<li><p>建立新组成员到组的连接组成员列表</p>
+<p>loose-group_replication_group_seeds&#x3D;”n0:24901,n1:24901,n2:24901”</p>
+</li>
+<li><p>配置此服务器为引导组，此选项必须仅在一台服务器上设置，仅第一次或启动组时打开。成功引导组启动后，置为关闭</p>
+<p>loose-group_replication_bootstrap_group&#x3D;OFF</p>
+</li>
+</ul>
+<h2 id="初始化MySQL"><a href="#初始化MySQL" class="headerlink" title="初始化MySQL"></a>初始化MySQL</h2><ul>
+<li><p>连接后修改初始密码</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>  IDENTIFIED <span class="keyword">WITH</span> mysql_native_password <span class="keyword">BY</span> <span class="string">&#x27;asAS123456!&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建rpl_user账户，此账户用于实现主从数据同步</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> rpl_user@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;asAS123456!&#x27;</span>; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>赋予主从同步权限 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> REPLICATION SLAVE <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> rpl_user@<span class="string">&#x27;%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建一个远程连接用户，用于Navcate登录的时候使用，避免直接使用root登录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;remote&#x27;</span>@<span class="string">&#x27;%&#x27;</span> identified <span class="keyword">with</span> mysql_native_password <span class="keyword">by</span> <span class="string">&#x27;asAS123456!&#x27;</span>; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为remote用户赋予所有数据库资源的访问权限</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> remote@<span class="string">&#x27;%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>让刚才的修改生效 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FLUSH PRIVILEGES; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除已产生的Binlog，一定要RESET MASTER，它会删除刚才已产生的Binlog，因为刚才Binglog包含创建用户这种高权限操作，用于主从同步的rpl_user账户是没有权限执行的，这就会导致RelayLog重放无法正确执行，导致从属服务器卡死在”RECEVERING”状态</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RESET MASTER; </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="安装MGR插件"><a href="#安装MGR插件" class="headerlink" title="安装MGR插件"></a>安装MGR插件</h2><ul>
+<li><p>每一台节点，在MySQL提示符状态下，使用INSTALL PLUGIN安装MGR插件</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSTALL PLUGIN group_replication SONAME <span class="string">&#x27;group_replication.so&#x27;</span>; </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="进行组网数据同步"><a href="#进行组网数据同步" class="headerlink" title="进行组网数据同步"></a>进行组网数据同步</h2><h3 id="Master节点"><a href="#Master节点" class="headerlink" title="Master节点"></a>Master节点</h3><ul>
+<li><p>在 primary.cnf 配置文件中把group_replication_bootstrap_group 参数设置成 OFF，在 primary 服务器启动时并不会直接启动复制组，通过下面的命令动态的开启复制组是我们的集群更安全。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">GLOBAL</span> group_replication_bootstrap_group<span class="operator">=</span><span class="keyword">ON</span>; </span><br><span class="line"><span class="keyword">START</span> GROUP_REPLICATION; </span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">GLOBAL</span> group_replication_bootstrap_group<span class="operator">=</span>OFF; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行成功，可以在linux命令提示符下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f /var/log/mysqld.log </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>看到下面的数据代表Master启动成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2022-03-04T03:15:12.930686Z 34 [System] [MY-011510] [Repl]  </span><br><span class="line">Plugin group_replication reported: &#x27;This server is working as primary member.&#x27; </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Slave节点"><a href="#Slave节点" class="headerlink" title="Slave节点"></a>Slave节点</h3><ul>
+<li><p>指定主从账户与指定通信频道 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CHANGE MASTER <span class="keyword">TO</span> MASTER_USER<span class="operator">=</span>&quot;rpl_user&quot;, MASTER_PASSWORD<span class="operator">=</span>&quot;asAS123456!&quot; <span class="keyword">FOR</span> CHANNEL <span class="string">&#x27;group_replication_recovery&#x27;</span>; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启组网数据同步 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> GROUP_REPLICATION; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当两个从节点都运行完毕后，运行下面结果进行验证。如果看到一主两从都是“ONLINE”状态，代表组网成功</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> performance_schema.replication_group_members; </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="ProxySQL配置"><a href="#ProxySQL配置" class="headerlink" title="ProxySQL配置"></a>ProxySQL配置</h2><ul>
+<li><p>连接到ProxySQL Admin，它是一个伪装为MySQL的ProxySQL服务端</p>
+<p>mysql -u admin -padmin -h 127.0.0.1 -P6032 –prompt&#x3D;’Admin&gt; ‘</p>
+</li>
+<li><p>加入后端节点，从192.168.31.230~232</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> mysql_servers(hostgroup_id,hostname,port) <span class="keyword">values</span> (<span class="number">10</span>,<span class="string">&#x27;192.168.31.230&#x27;</span>,<span class="number">3306</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> mysql_servers(hostgroup_id,hostname,port) <span class="keyword">values</span> (<span class="number">10</span>,<span class="string">&#x27;192.168.31.231&#x27;</span>,<span class="number">3306</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> mysql_servers(hostgroup_id,hostname,port) <span class="keyword">values</span> (<span class="number">10</span>,<span class="string">&#x27;192.168.31.232&#x27;</span>,<span class="number">3306</span>); </span><br><span class="line"></span><br><span class="line">load mysql servers <span class="keyword">to</span> runtime;</span><br><span class="line">save mysql servers <span class="keyword">to</span> disk; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在n0节点 192.168.31.230执行创建监控命令，该账户会通过主节点同步到其他从属节点</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> validate_password.policy<span class="operator">=</span><span class="number">0</span>; </span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> validate_password.length<span class="operator">=</span><span class="number">4</span>; </span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;monitor&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> &quot;monitor@1025&quot;;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;proxysql&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> &quot;proxysql@1025&quot;; </span><br><span class="line"></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;monitor&#x27;</span>@<span class="string">&#x27;%&#x27;</span> ;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;proxysql&#x27;</span>@<span class="string">&#x27;%&#x27;</span> ; </span><br><span class="line"></span><br><span class="line">FLUSH PRIVILEGES; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在n0主节点上执行下面语句来创建gr_member_routing_candidate_status视图，这是主从故障切换关键所在</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">use sys;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> my_id() <span class="keyword">RETURNS</span> TEXT(<span class="number">36</span>) <span class="keyword">DETERMINISTIC</span> <span class="keyword">NO</span> <span class="keyword">SQL</span> <span class="keyword">RETURN</span> (<span class="keyword">SELECT</span> @<span class="variable">@global</span>.server_uuid <span class="keyword">as</span> my_id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> gr_member_in_primary_partition() </span><br><span class="line">	<span class="keyword">RETURNS</span> <span class="type">VARCHAR</span>(<span class="number">3</span>) </span><br><span class="line">	<span class="keyword">DETERMINISTIC</span> </span><br><span class="line">	<span class="keyword">BEGIN</span> </span><br><span class="line">   		<span class="keyword">RETURN</span> </span><br><span class="line">   			(<span class="keyword">SELECT</span> IF( MEMBER_STATE<span class="operator">=</span><span class="string">&#x27;ONLINE&#x27;</span> <span class="keyword">AND</span> ((<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> performance_schema.replication_group_members 				<span class="keyword">WHERE</span> MEMBER_STATE <span class="keyword">NOT</span> <span class="keyword">IN</span> (<span class="string">&#x27;ONLINE&#x27;</span>, <span class="string">&#x27;RECOVERING&#x27;</span>)) <span class="operator">&gt;=</span>  ((<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) </span><br><span class="line">   			<span class="keyword">FROM</span> performance_schema.replication_group_members)<span class="operator">/</span><span class="number">2</span>) <span class="operator">=</span> <span class="number">0</span>), <span class="string">&#x27;YES&#x27;</span>, <span class="string">&#x27;NO&#x27;</span> )</span><br><span class="line">            <span class="keyword">FROM</span> performance_schema.replication_group_members</span><br><span class="line">            <span class="keyword">JOIN</span> performance_schema.replication_group_member_stats <span class="keyword">USING</span>(member_id) <span class="keyword">where</span> member_id<span class="operator">=</span>my_id()); </span><br><span class="line"><span class="keyword">END</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> gr_member_routing_candidate_status <span class="keyword">AS</span></span><br><span class="line">	<span class="keyword">SELECT</span> sys.gr_member_in_primary_partition() <span class="keyword">as</span> viable_candidate, </span><br><span class="line">		IF( (<span class="keyword">SELECT</span> (<span class="keyword">SELECT</span> GROUP_CONCAT(variable_value)</span><br><span class="line">		<span class="keyword">FROM</span> performance_schema.global_variables</span><br><span class="line">		<span class="keyword">WHERE</span> variable_name <span class="keyword">IN</span> (<span class="string">&#x27;read_only&#x27;</span>, <span class="string">&#x27;super_read_only&#x27;</span>)) <span class="operator">!=</span> <span class="string">&#x27;OFF,OFF&#x27;</span>), <span class="string">&#x27;YES&#x27;</span>, <span class="string">&#x27;NO&#x27;</span>) <span class="keyword">as</span> read_only, </span><br><span class="line">		Count_Transactions_Remote_In_Applier_Queue <span class="keyword">as</span> transactions_behind, Count_Transactions_in_queue <span class="keyword">as</span> 							<span class="string">&#x27;transactions_to_cert&#x27;</span> <span class="keyword">from</span> performance_schema.replication_group_member_stats <span class="keyword">where</span> member_id<span class="operator">=</span>my_id(); </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在ProxySQL中设置监控账号与程序账号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> mysql<span class="operator">-</span>monitor_username<span class="operator">=</span><span class="string">&#x27;monitor&#x27;</span>;</span><br><span class="line"><span class="keyword">set</span> mysql<span class="operator">-</span>monitor_password<span class="operator">=</span><span class="string">&#x27;monitor@1025&#x27;</span>;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> mysql_users(username,password,active,default_hostgroup,transaction_persistent) <span class="keyword">values</span>(<span class="string">&#x27;proxysql&#x27;</span>,<span class="string">&#x27;proxysql@1025&#x27;</span>,<span class="number">1</span>,<span class="number">10</span>,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置读写组，主负责写、从负责读，当MGR主库切换后，代理自动识别主从。ProxySQL代理每一个后端MGR集群时，都必须为这个MGR定义写组10、备写组20、读组30、离线组40。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> mysql_group_replication_hostgroups (writer_hostgroup,backup_writer_hostgroup,reader_hostgroup, offline_hostgroup,active,max_writers,writer_is_also_reader,max_transactions_behind) <span class="keyword">values</span> (<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启用规则</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">load mysql servers <span class="keyword">to</span> runtime; </span><br><span class="line">save mysql servers <span class="keyword">to</span> disk; </span><br><span class="line">load mysql users <span class="keyword">to</span> runtime; </span><br><span class="line">save mysql users <span class="keyword">to</span> disk; </span><br><span class="line">load mysql variables <span class="keyword">to</span> runtime; </span><br><span class="line">save mysql variables <span class="keyword">to</span> disk; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>状态校验</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> hostgroup_id, hostname, port,status <span class="keyword">from</span> runtime_mysql_servers; </span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>配置读写分离规则</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> mysql_query_rules(rule_id,active,match_digest,destination_hostgroup,apply)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="number">1</span>,<span class="string">&#x27;^SELECT.*FOR UPDATE$&#x27;</span>,<span class="number">10</span>,<span class="number">1</span>),(<span class="number">2</span>,<span class="number">1</span>,<span class="string">&#x27;^SELECT&#x27;</span>,<span class="number">30</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">load mysql query rules <span class="keyword">to</span> runtime; </span><br><span class="line">save mysql query rules <span class="keyword">to</span> disk; </span><br></pre></td></tr></table></figure></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">HoshinoBunny</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/11/03/%E6%90%AD%E5%BB%BAMGR+ProxySQL%E9%9B%86%E7%BE%A4/">http://example.com/2024/11/03/%E6%90%AD%E5%BB%BAMGR+ProxySQL%E9%9B%86%E7%BE%A4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Hoshino Bunny‘s Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MySQL-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4-ProxySQL/">MySQL, 分布式集群, ProxySQL</a></div><div class="post-share"><div class="social-share" data-image="https://github.com/xszhangxiaocuo/picBed/blob/master/picBed/hoshino.png?raw=true" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2024/10/28/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8%EF%BC%89/" title="深入浅出区块链笔记（1-8 区块链基础知识）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">深入浅出区块链笔记（1-8 区块链基础知识）</div></div><div class="info-2"><div class="info-item-1">深入浅出区块链笔记（1-8 区块链基础知识）区块链是什么？ 区块链首先是一个分布式网络。 区块链可以帮助多个节点达成共识去记录和token相关的事情。 区块链可以帮助所有人无门槛地构建属于自己的小经济系统。  让所有的独立节点想要达成共识去做同一件事情，是区块链在技术上首先要解决的问题，这就是我们常说的共识过程，也是“去中心化”这个概念的直接来源。 区块链共识机制共识机制是区块链是核心的组成要素之一，它决定了区块链的业务吞吐量、交易速度、不可篡改性、准入门槛等等，是最为关键的技术要素之一。 共识机制主要解决了两个问题：  谁有权利记账。 作弊问题。  在比特币社区，“共识”（consensus）这个词已经跳出了技术的范畴。通常人们在表述一个比特币上的问题时，共识的内涵还包括比特币的使用者、开发者、矿工来达成社区共识的部分，所以“共识”这个词在区块链领域还有些“民主”的味道，不单单是技术领域的“共识”。 最经典的入门型共识机制：PoW工作量证明PoW（Proof of...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://github.com/xszhangxiaocuo/picBed/blob/master/picBed/hoshino.png?raw=true" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">HoshinoBunny</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xszhangxiaocuo"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xszhangxiaocuo" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zyj6659644@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%90%AD%E5%BB%BAMGR-ProxySQL%E9%9B%86%E7%BE%A4"><span class="toc-number">1.</span> <span class="toc-text">搭建MGR+ProxySQL集群</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE"><span class="toc-number">1.1.</span> <span class="toc-text">系统配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">MySQL配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#master%E8%8A%82%E7%82%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text">master节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#slave%E8%8A%82%E7%82%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text">slave节点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96MySQL"><span class="toc-number">1.3.</span> <span class="toc-text">初始化MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85MGR%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.</span> <span class="toc-text">安装MGR插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E8%A1%8C%E7%BB%84%E7%BD%91%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5"><span class="toc-number">1.5.</span> <span class="toc-text">进行组网数据同步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Master%E8%8A%82%E7%82%B9"><span class="toc-number">1.5.1.</span> <span class="toc-text">Master节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Slave%E8%8A%82%E7%82%B9"><span class="toc-number">1.5.2.</span> <span class="toc-text">Slave节点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ProxySQL%E9%85%8D%E7%BD%AE"><span class="toc-number">1.6.</span> <span class="toc-text">ProxySQL配置</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/03/%E6%90%AD%E5%BB%BAMGR+ProxySQL%E9%9B%86%E7%BE%A4/" title="搭建MGR+ProxySQL集群">搭建MGR+ProxySQL集群</a><time datetime="2024-11-03T13:29:41.000Z" title="发表于 2024-11-03 21:29:41">2024-11-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/28/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8%EF%BC%89/" title="深入浅出区块链笔记（1-8 区块链基础知识）">深入浅出区块链笔记（1-8 区块链基础知识）</a><time datetime="2024-10-28T09:06:57.000Z" title="发表于 2024-10-28 17:06:57">2024-10-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/27/%E7%94%A8Go%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E2%80%94GoCache%209bd748b3e11942448bafb083dada9493/" title="用Go实现一个分布式缓存—GoCache">用Go实现一个分布式缓存—GoCache</a><time datetime="2024-10-27T11:30:49.000Z" title="发表于 2024-10-27 19:30:49">2024-10-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/26/VMware%E5%85%8B%E9%9A%86%E5%90%8E%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%98%E5%9C%A8mac%E5%9C%B0%E5%9D%80%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98%200ad07e84d5c44aa4ac17822ed66e16b0/" title="VMware克隆后的虚拟机存在mac地址冲突问题">VMware克隆后的虚拟机存在mac地址冲突问题</a><time datetime="2024-10-26T11:30:49.000Z" title="发表于 2024-10-26 19:30:49">2024-10-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By HoshinoBunny</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
