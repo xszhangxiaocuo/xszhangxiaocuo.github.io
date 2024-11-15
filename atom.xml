@@ -3,11 +3,11 @@
   <title>Hoshino Bunny‘s Blog</title>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="http://xszhangxiaocuo.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
+  <link href="http://xszhangxiaocuo.github.io/"/>
   <updated>2024-11-15T05:19:15.217Z</updated>
-  <id>http://example.com/</id>
+  <id>http://xszhangxiaocuo.github.io/</id>
   
   <author>
     <name>HoshinoBunny</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Arc浏览器快捷键</title>
-    <link href="http://example.com/2024/11/15/Arc%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
-    <id>http://example.com/2024/11/15/Arc%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</id>
+    <link href="http://xszhangxiaocuo.github.io/2024/11/15/Arc%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+    <id>http://xszhangxiaocuo.github.io/2024/11/15/Arc%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</id>
     <published>2024-11-15T05:07:00.000Z</published>
     <updated>2024-11-15T05:19:15.217Z</updated>
     
@@ -33,19 +33,19 @@
     
     
     
-    <category term="杂项" scheme="http://example.com/categories/%E6%9D%82%E9%A1%B9/"/>
+    <category term="杂项" scheme="http://xszhangxiaocuo.github.io/categories/%E6%9D%82%E9%A1%B9/"/>
     
     
-    <category term="Arc" scheme="http://example.com/tags/Arc/"/>
+    <category term="Arc" scheme="http://xszhangxiaocuo.github.io/tags/Arc/"/>
     
-    <category term="使用技巧" scheme="http://example.com/tags/%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
+    <category term="使用技巧" scheme="http://xszhangxiaocuo.github.io/tags/%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
     
   </entry>
   
   <entry>
     <title>区块链中的共识算法</title>
-    <link href="http://example.com/2024/11/13/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%AD%E7%9A%84%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/"/>
-    <id>http://example.com/2024/11/13/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%AD%E7%9A%84%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/</id>
+    <link href="http://xszhangxiaocuo.github.io/2024/11/13/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%AD%E7%9A%84%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/"/>
+    <id>http://xszhangxiaocuo.github.io/2024/11/13/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%AD%E7%9A%84%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/</id>
     <published>2024-11-13T11:58:41.000Z</published>
     <updated>2024-11-13T12:02:54.869Z</updated>
     
@@ -59,19 +59,19 @@
     
     
     
-    <category term="编程学习" scheme="http://example.com/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    <category term="编程学习" scheme="http://xszhangxiaocuo.github.io/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="区块链" scheme="http://example.com/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    <category term="区块链" scheme="http://xszhangxiaocuo.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
     
-    <category term="共识算法" scheme="http://example.com/tags/%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/"/>
+    <category term="共识算法" scheme="http://xszhangxiaocuo.github.io/tags/%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>搭建MGR+ProxySQL集群</title>
-    <link href="http://example.com/2024/11/03/%E6%90%AD%E5%BB%BAMGR+ProxySQL%E9%9B%86%E7%BE%A4/"/>
-    <id>http://example.com/2024/11/03/%E6%90%AD%E5%BB%BAMGR+ProxySQL%E9%9B%86%E7%BE%A4/</id>
+    <link href="http://xszhangxiaocuo.github.io/2024/11/03/%E6%90%AD%E5%BB%BAMGR+ProxySQL%E9%9B%86%E7%BE%A4/"/>
+    <id>http://xszhangxiaocuo.github.io/2024/11/03/%E6%90%AD%E5%BB%BAMGR+ProxySQL%E9%9B%86%E7%BE%A4/</id>
     <published>2024-11-03T13:29:41.000Z</published>
     <updated>2024-11-10T06:57:54.723Z</updated>
     
@@ -85,21 +85,21 @@
     
     
     
-    <category term="编程学习" scheme="http://example.com/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    <category term="编程学习" scheme="http://xszhangxiaocuo.github.io/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="MySQL" scheme="http://example.com/tags/MySQL/"/>
+    <category term="MySQL" scheme="http://xszhangxiaocuo.github.io/tags/MySQL/"/>
     
-    <category term="分布式" scheme="http://example.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    <category term="分布式" scheme="http://xszhangxiaocuo.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
-    <category term="ProxySQL" scheme="http://example.com/tags/ProxySQL/"/>
+    <category term="ProxySQL" scheme="http://xszhangxiaocuo.github.io/tags/ProxySQL/"/>
     
   </entry>
   
   <entry>
     <title>深入浅出区块链笔记（1-8 区块链基础知识）</title>
-    <link href="http://example.com/2024/10/28/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8%EF%BC%89/"/>
-    <id>http://example.com/2024/10/28/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8%EF%BC%89/</id>
+    <link href="http://xszhangxiaocuo.github.io/2024/10/28/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8%EF%BC%89/"/>
+    <id>http://xszhangxiaocuo.github.io/2024/10/28/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0%EF%BC%881-8%EF%BC%89/</id>
     <published>2024-10-28T09:06:57.000Z</published>
     <updated>2024-11-10T06:57:50.156Z</updated>
     
@@ -113,17 +113,17 @@
     
     
     
-    <category term="编程学习" scheme="http://example.com/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    <category term="编程学习" scheme="http://xszhangxiaocuo.github.io/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="区块链" scheme="http://example.com/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    <category term="区块链" scheme="http://xszhangxiaocuo.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
     
   </entry>
   
   <entry>
     <title>用Go实现一个分布式缓存—GoCache</title>
-    <link href="http://example.com/2024/10/27/%E7%94%A8Go%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E2%80%94GoCache%209bd748b3e11942448bafb083dada9493/"/>
-    <id>http://example.com/2024/10/27/%E7%94%A8Go%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E2%80%94GoCache%209bd748b3e11942448bafb083dada9493/</id>
+    <link href="http://xszhangxiaocuo.github.io/2024/10/27/%E7%94%A8Go%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E2%80%94GoCache%209bd748b3e11942448bafb083dada9493/"/>
+    <id>http://xszhangxiaocuo.github.io/2024/10/27/%E7%94%A8Go%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E2%80%94GoCache%209bd748b3e11942448bafb083dada9493/</id>
     <published>2024-10-27T11:30:49.000Z</published>
     <updated>2024-11-10T06:57:39.342Z</updated>
     
@@ -137,23 +137,23 @@
     
     
     
-    <category term="编程学习" scheme="http://example.com/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    <category term="编程学习" scheme="http://xszhangxiaocuo.github.io/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="Go" scheme="http://example.com/tags/Go/"/>
+    <category term="Go" scheme="http://xszhangxiaocuo.github.io/tags/Go/"/>
     
-    <category term="分布式缓存" scheme="http://example.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/"/>
+    <category term="分布式缓存" scheme="http://xszhangxiaocuo.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/"/>
     
-    <category term="Redis" scheme="http://example.com/tags/Redis/"/>
+    <category term="Redis" scheme="http://xszhangxiaocuo.github.io/tags/Redis/"/>
     
-    <category term="一致性哈希" scheme="http://example.com/tags/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/"/>
+    <category term="一致性哈希" scheme="http://xszhangxiaocuo.github.io/tags/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/"/>
     
   </entry>
   
   <entry>
     <title>VMware克隆后的虚拟机存在mac地址冲突问题</title>
-    <link href="http://example.com/2024/10/26/VMware%E5%85%8B%E9%9A%86%E5%90%8E%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%98%E5%9C%A8mac%E5%9C%B0%E5%9D%80%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98%200ad07e84d5c44aa4ac17822ed66e16b0/"/>
-    <id>http://example.com/2024/10/26/VMware%E5%85%8B%E9%9A%86%E5%90%8E%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%98%E5%9C%A8mac%E5%9C%B0%E5%9D%80%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98%200ad07e84d5c44aa4ac17822ed66e16b0/</id>
+    <link href="http://xszhangxiaocuo.github.io/2024/10/26/VMware%E5%85%8B%E9%9A%86%E5%90%8E%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%98%E5%9C%A8mac%E5%9C%B0%E5%9D%80%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98%200ad07e84d5c44aa4ac17822ed66e16b0/"/>
+    <id>http://xszhangxiaocuo.github.io/2024/10/26/VMware%E5%85%8B%E9%9A%86%E5%90%8E%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%98%E5%9C%A8mac%E5%9C%B0%E5%9D%80%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98%200ad07e84d5c44aa4ac17822ed66e16b0/</id>
     <published>2024-10-26T11:30:49.000Z</published>
     <updated>2024-11-10T06:57:44.792Z</updated>
     
@@ -167,14 +167,14 @@
     
     
     
-    <category term="编程学习" scheme="http://example.com/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    <category term="编程学习" scheme="http://xszhangxiaocuo.github.io/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="VMware" scheme="http://example.com/tags/VMware/"/>
+    <category term="VMware" scheme="http://xszhangxiaocuo.github.io/tags/VMware/"/>
     
-    <category term="网络" scheme="http://example.com/tags/%E7%BD%91%E7%BB%9C/"/>
+    <category term="网络" scheme="http://xszhangxiaocuo.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
     
-    <category term="踩坑" scheme="http://example.com/tags/%E8%B8%A9%E5%9D%91/"/>
+    <category term="踩坑" scheme="http://xszhangxiaocuo.github.io/tags/%E8%B8%A9%E5%9D%91/"/>
     
   </entry>
   
