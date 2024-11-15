@@ -184,10 +184,9 @@
     
   </entry>
   
-  
-    <follow_challenge>
-      <feedId>80109775630991360</feedId>
-      <userId>80108855711883260</userId>
-    </follow_challenge>
-  
+  <!--  -->
+  <follow_challenge>
+    <feedId>80109775630991360</feedId>
+    <userId>80108855711883264</userId>
+</follow_challenge>
 </feed>
