@@ -6,7 +6,7 @@
   <link href="http://blog.hoshinobunny.xyz/atom.xml" rel="self"/>
   
   <link href="http://blog.hoshinobunny.xyz/"/>
-  <updated>2024-11-30T03:39:31.273Z</updated>
+  <updated>2024-11-30T12:56:47.393Z</updated>
   <id>http://blog.hoshinobunny.xyz/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>for range的闭包问题</title>
+    <link href="http://blog.hoshinobunny.xyz/2024/11/30/for%20range%E7%9A%84%E9%97%AD%E5%8C%85%E9%97%AE%E9%A2%98/"/>
+    <id>http://blog.hoshinobunny.xyz/2024/11/30/for%20range%E7%9A%84%E9%97%AD%E5%8C%85%E9%97%AE%E9%A2%98/</id>
+    <published>2024-11-30T12:56:21.000Z</published>
+    <updated>2024-11-30T12:56:47.393Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="for-range的闭包问题"><a href="#for-range的闭包问题" class="headerlink" title="for range的闭包问题"></a>for range的闭包问题</h1><p>在之前，Go中的for range语句中用短声明形式定义的循环变量是整个循环共享同一个，这就导致在for range语句中的闭包在循环结束后引用的该循环变量最后都会变为同一个值。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">var wg sync.WaitGroup</span><br><span class="line"><span class="keyword">for</span> i := 0; i &lt; 3; i++ &#123;</span><br><span class="line">wg.Add(1)</span><br><span class="line">go <span class="function"><span class="title">func</span></span>() &#123;</span><br><span class="line">defer wg.Done()</span><br><span class="line">fmt.Println(i)</span><br><span class="line">&#125;()</span><br><span class="line">&#125;</span><br><span class="line">wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>例如在上面的代码中，最后输出的结果为：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">3</span><br><span class="line">3</span><br></pre></td></tr></table></figure><p>这是因为闭包实际上捕获的是对变量 <code>i</code> 的引用，在闭包函数运行时，循环语句已经结束，<code>i</code> 的值已经变为了<code>3</code>，所以输出的结果自然都是<code>3</code>。</p><p>如果要实现预期输出，则需要使每个闭包函数的引用各不相同，修改如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">func <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">var wg sync.WaitGroup</span><br><span class="line"><span class="keyword">for</span> i := 0; i &lt; 3; i++ &#123;</span><br><span class="line">wg.Add(1)</span><br><span class="line">x:=1</span><br><span class="line">go <span class="function"><span class="title">func</span></span>() &#123;</span><br><span class="line">defer wg.Done()</span><br><span class="line">fmt.Println(x)</span><br><span class="line">&#125;()</span><br><span class="line">&#125;</span><br><span class="line">wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>每次通过新定义变量<code>x</code> 来实现不同闭包函数对不同变量的引用，就能得到预期输出(由于是并发执行，输出结果不一定有序)：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br></pre></td></tr></table></figure><blockquote><p><code>Go 1.22</code>版本的编译器已经对此做了优化，现在循环变量的定义变为每次迭代定义一个，所以每次闭包函数捕获的引用值会不同，现在直接使用变量<code>i</code> 也能够得到预期输出。</p></blockquote><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://tonybai.com/2024/02/18/some-changes-in-go-1-22/">https://tonybai.com/2024/02/18/some-changes-in-go-1-22/</a></p><p><a href="https://cloud.tencent.com/developer/article/2395693">https://cloud.tencent.com/developer/article/2395693</a></p><p><a href="https://linux.do/t/topic/219504">https://linux.do/t/topic/219504</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;for-range的闭包问题&quot;&gt;&lt;a href=&quot;#for-range的闭包问题&quot; class=&quot;headerlink&quot; title=&quot;for range的闭包问题&quot;&gt;&lt;/a&gt;for range的闭包问题&lt;/h1&gt;&lt;p&gt;在之前，Go中的for range语句中用短</summary>
+      
+    
+    
+    
+    <category term="Coding" scheme="http://blog.hoshinobunny.xyz/categories/Coding/"/>
+    
+    
+    <category term="Go" scheme="http://blog.hoshinobunny.xyz/tags/Go/"/>
+    
+    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+  </entry>
   
   <entry>
     <title>Golang使用Protocol Buffers不完全指北</title>
@@ -38,11 +64,11 @@
     
     <category term="Go" scheme="http://blog.hoshinobunny.xyz/tags/Go/"/>
     
+    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
     <category term="ProtocolBuffers" scheme="http://blog.hoshinobunny.xyz/tags/ProtocolBuffers/"/>
     
     <category term="gRPC" scheme="http://blog.hoshinobunny.xyz/tags/gRPC/"/>
-    
-    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
