@@ -6,7 +6,7 @@
   <link href="http://blog.hoshinobunny.xyz/atom.xml" rel="self"/>
   
   <link href="http://blog.hoshinobunny.xyz/"/>
-  <updated>2024-11-30T12:56:47.393Z</updated>
+  <updated>2024-12-01T06:33:46.610Z</updated>
   <id>http://blog.hoshinobunny.xyz/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>结构体指针的转换</title>
+    <link href="http://blog.hoshinobunny.xyz/2024/12/01/%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88%E7%9A%84%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://blog.hoshinobunny.xyz/2024/12/01/%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88%E7%9A%84%E8%BD%AC%E6%8D%A2/</id>
+    <published>2024-12-01T06:33:20.000Z</published>
+    <updated>2024-12-01T06:33:46.610Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="结构体指针的转换"><a href="#结构体指针的转换" class="headerlink" title="结构体指针的转换"></a>结构体指针的转换</h1><h1 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h1><p>起因是在水群的时候看到这么个问题：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line"><span class="string">&quot;fmt&quot;</span></span><br><span class="line"><span class="string">&quot;unsafe&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Reception struct &#123;</span><br><span class="line">p   unsafe.Pointer</span><br><span class="line">len int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line"><span class="built_in">type</span> A struct &#123;</span><br><span class="line">s string</span><br><span class="line">&#125;</span><br><span class="line">m := make(map[string]struct&#123;&#125;)</span><br><span class="line">tmp := A&#123;s: <span class="string">&quot;hello&quot;</span>&#125;</span><br><span class="line">m[tmp.s] = struct&#123;&#125;&#123;&#125;</span><br><span class="line">// 由于 A 结构体的字段 s 是一个字符串类型，所以在将 tmp.s 作为 map 的 key 时，会将字符串的地址作为 key，而不是字符串的值</span><br><span class="line">fmt.Printf(<span class="string">&quot;tmp.s: %+v\n&quot;</span>, &amp;tmp.s)</span><br><span class="line"></span><br><span class="line">rB := *(*Reception)(unsafe.Pointer(&amp;tmp.s))</span><br><span class="line">fmt.Printf(<span class="string">&quot;rB.p: %+v\n&quot;</span>, rB.p)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k := range m &#123;</span><br><span class="line">rA := *(*Reception)(unsafe.Pointer(&amp;k))</span><br><span class="line">fmt.Printf(<span class="string">&quot;rA.p: %+v\n&quot;</span>, rA.p)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>在这段代码中，将<code>A</code> 类型结构体的实例<code>tmp</code> 中的<code>string</code> 类型字段<code>tmp.s</code> 作为map类型<code>m</code>的key，然后在试图释放<code>tmp</code> 实例的时候会发现无法释放。这是因为<code>string</code> 类型是一个结构体，<code>tmp.s</code> 实际上是一个指针，所以<code>m</code>在将其作为key的时候是引用了该指针，这就导致<code>tmp</code> 无法被释放，因为它任然被<code>m</code> 引用。</p><p>将<code>tmp.s</code> 的指针转换为通用指针类型，最后转为<code>Reception</code> 类型的指针（<code>Reception</code>结构体对应<code>string</code>类型的底层结构体实现）并输出该指针。取出<code>m</code> 中的key，进行同样的指针转换，最后输出，发现两个指针的内容相同，说明这两个指针指向了同一个地址。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tmp.s: 0x14000102020</span><br><span class="line">rB.p: 0x102e9e800</span><br><span class="line">rA.p: 0x102e9e800</span><br></pre></td></tr></table></figure><p>实际上<code>tmp.s</code> 这个字段就是一个和<code>Reception</code> 结构一致的结构体，它们的第一个字段都是一个8字节的通用指针类型，第二个字段都是一个8字节的int类型（在64操作系统上默认为8字节，而在32位操作系统上默认为4个字节），所以<code>tmp.s</code> 会占用16个字节。由于<code>string</code>是Go的基础类型，直接打印只能输出字符串的值，而无法获取其字符串的真实地址，因此需要将字符串类型的结构体指针通过通用指针类型转换为自定义的<code>Reception</code> 结构体就可以获取到字符串内存空间的指针。</p><p>这里转换的原理其实只是修改了这16个字节的<code>语义</code>。本来这16个字节会被计算机解释为<code>string</code> 类型，但是通过将其转换为自定义的<code>Reception</code> 结构体后，就会按照<code>Reception</code> 结构体的规则来解析这16个字节，而<code>Reception</code> 结构体的字段结构是和<code>string</code> 类型一致的，这自然就拿到了我们想要的字符串的真实地址，即前八个字节解析出来的<code>Recption.p</code>。</p><h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>至于这个问题的解决办法很简单，只需要<code>深拷贝</code> 一份该字符串使引用的地址不同即可。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line"><span class="string">&quot;fmt&quot;</span></span><br><span class="line"><span class="string">&quot;unsafe&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Reception struct &#123;</span><br><span class="line">p   unsafe.Pointer</span><br><span class="line">len int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line"><span class="built_in">type</span> A struct &#123;</span><br><span class="line">s string</span><br><span class="line">&#125;</span><br><span class="line">m := make(map[string]struct&#123;&#125;)</span><br><span class="line">tmp := A&#123;s: <span class="string">&quot;hello&quot;</span>&#125;</span><br><span class="line">// 将字符串拷贝一份，使 m 引用的地址与 tmp.s 不同即可</span><br><span class="line">m[strings.Clone(tmp.s)] = struct&#123;&#125;&#123;&#125;</span><br><span class="line">// 由于 A 结构体的字段 s 是一个字符串类型，所以在将 tmp.s 作为 map 的 key 时，会将字符串的地址作为 key，而不是字符串的值</span><br><span class="line">fmt.Printf(<span class="string">&quot;tmp.s: %+v\n&quot;</span>, &amp;tmp.s)</span><br><span class="line"></span><br><span class="line">rB := *(*Reception)(unsafe.Pointer(&amp;tmp.s))</span><br><span class="line">fmt.Printf(<span class="string">&quot;rB.p: %+v\n&quot;</span>, rB.p)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k := range m &#123;</span><br><span class="line">rA := *(*Reception)(unsafe.Pointer(&amp;k))</span><br><span class="line">fmt.Printf(<span class="string">&quot;rA.p: %+v\n&quot;</span>, rA.p)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>或者在 <code>m</code> 的key设置完成后，修改<code>tmp.s</code>的值，字符串的值修改后，由于原先的字符串地址被<code>m</code> 引用了，所以<code>tmp.s</code> 就会使用新的内存地址，这同样实现了两者地址引用的不同。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;结构体指针的转换&quot;&gt;&lt;a href=&quot;#结构体指针的转换&quot; class=&quot;headerlink&quot; title=&quot;结构体指针的转换&quot;&gt;&lt;/a&gt;结构体指针的转换&lt;/h1&gt;&lt;h1 id=&quot;问题：&quot;&gt;&lt;a href=&quot;#问题：&quot; class=&quot;headerlink&quot; ti</summary>
+      
+    
+    
+    
+    <category term="Coding" scheme="http://blog.hoshinobunny.xyz/categories/Coding/"/>
+    
+    
+    <category term="Go" scheme="http://blog.hoshinobunny.xyz/tags/Go/"/>
+    
+    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+  </entry>
   
   <entry>
     <title>for range的闭包问题</title>
@@ -64,11 +90,11 @@
     
     <category term="Go" scheme="http://blog.hoshinobunny.xyz/tags/Go/"/>
     
-    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    
     <category term="ProtocolBuffers" scheme="http://blog.hoshinobunny.xyz/tags/ProtocolBuffers/"/>
     
     <category term="gRPC" scheme="http://blog.hoshinobunny.xyz/tags/gRPC/"/>
+    
+    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
@@ -93,9 +119,9 @@
     <category term="杂项" scheme="http://blog.hoshinobunny.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
     
     
-    <category term="网络" scheme="http://blog.hoshinobunny.xyz/tags/%E7%BD%91%E7%BB%9C/"/>
-    
     <category term="Cloudflare" scheme="http://blog.hoshinobunny.xyz/tags/Cloudflare/"/>
+    
+    <category term="网络" scheme="http://blog.hoshinobunny.xyz/tags/%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
@@ -314,9 +340,9 @@
     <category term="Coding" scheme="http://blog.hoshinobunny.xyz/categories/Coding/"/>
     
     
-    <category term="VMware" scheme="http://blog.hoshinobunny.xyz/tags/VMware/"/>
-    
     <category term="网络" scheme="http://blog.hoshinobunny.xyz/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+    <category term="VMware" scheme="http://blog.hoshinobunny.xyz/tags/VMware/"/>
     
     <category term="踩坑" scheme="http://blog.hoshinobunny.xyz/tags/%E8%B8%A9%E5%9D%91/"/>
     
