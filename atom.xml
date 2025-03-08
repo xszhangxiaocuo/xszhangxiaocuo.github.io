@@ -92,11 +92,11 @@
     <category term="Coding" scheme="http://blog.hoshinobunny.xyz/categories/Coding/"/>
     
     
+    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
     <category term="踩坑" scheme="http://blog.hoshinobunny.xyz/tags/%E8%B8%A9%E5%9D%91/"/>
     
     <category term="前端" scheme="http://blog.hoshinobunny.xyz/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
@@ -243,9 +243,9 @@
     <link href="http://blog.hoshinobunny.xyz/2024/11/21/%E6%98%9F%E9%9C%B2%E8%B0%B7%EF%BC%88v1.6%EF%BC%89mod%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"/>
     <id>http://blog.hoshinobunny.xyz/2024/11/21/%E6%98%9F%E9%9C%B2%E8%B0%B7%EF%BC%88v1.6%EF%BC%89mod%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</id>
     <published>2024-11-21T09:29:57.000Z</published>
-    <updated>2024-11-25T08:45:19.748Z</updated>
+    <updated>2025-03-08T08:59:34.069Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>[!NOTE]</p><p>前情提要：因为今天邢老板心血来潮说想玩星露谷，于是我就整理了一点常用的mod来加强邢老板的新手体验😉</p></blockquote><h1 id="mod安装教程"><a href="#mod安装教程" class="headerlink" title="mod安装教程"></a>mod安装教程</h1><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1701782225&bvid=BV1XK421x7H9&cid=1585963427&p=1&autoplay=0&high_quality=1&danmaku=0"  border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="600"> </iframe><blockquote><p>[!NOTE]</p><p>mod下载网址：<a href="https://www.nexusmods.com/stardewvalley/mods/">https://www.nexusmods.com/stardewvalley/mods/</a></p><p>必须要先安装mod加载器<code>SMAPI</code>，解压<code>SMAPI-4.1.7-installer.zip</code>后根据操作系统运行相应的脚本即可。</p><p>一个压缩包是一个mod，解压后将文件夹拖入<code>星露谷物语</code>游戏安装路径下的<code>mod</code>文件夹即可。</p><p>有些mod需要安装必要的前置mod。</p></blockquote><h1 id="推荐mod列表"><a href="#推荐mod列表" class="headerlink" title="推荐mod列表"></a>推荐mod列表</h1><ul><li>Generic Mod Config Menu 通用Mod配置级菜单 5098</li><li>AutomaticGates 自动栅栏 3109</li><li>ChestsAnywhere 远程宝箱仓库 518</li><li>EideeEasyFishing 秒钓鱼 4806&#x2F;20391</li><li>LookupAnything 查看所有信息 541</li><li>PassableCrops 穿透作物 15223</li><li>UIInfoSuite2 显示当日信息 <a href="https://github.com/Annosz/UIInfoSuite2/releases">https://github.com/Annosz/UIInfoSuite2/releases</a></li><li>VisibleFish 显示当前可以钓的鱼 8897</li><li>ZoomLevel 增加视距 7363</li><li>PonyWeightLossProgram 小马减肥 1232</li><li>FastAnimations 动作加速 1089</li><li>LadderLocator 显示矿洞楼梯位置 3094</li><li>Chests Anywhere 随处打开箱子 518</li><li>Visible FIsh 可见鱼 8897</li><li>Automate 自动化 1063</li><li>SkullCavernElevator 骷髅矿洞电梯 963</li><li>Fast Animations 快速动画 1089</li><li>Tractor Mod 拖拉机 1401</li><li>CJB Cheats Menu CJB作弊菜单 4</li><li>CJB Item Spawner CJB扳手：93</li></ul>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>[!NOTE]</p><p>前情提要：因为今天邢老板心血来潮说想玩星露谷，于是我就整理了一点常用的mod来加强邢老板的新手体验😉</p></blockquote><h1 id="mod安装教程"><a href="#mod安装教程" class="headerlink" title="mod安装教程"></a>mod安装教程</h1><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1701782225&bvid=BV1XK421x7H9&cid=1585963427&p=1&autoplay=0&high_quality=1&danmaku=0"  border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="600"> </iframe><blockquote><p>[!NOTE]</p><p>mod下载网址：<a href="https://www.nexusmods.com/stardewvalley/mods/">https://www.nexusmods.com/stardewvalley/mods/</a></p><p>必须要先安装mod加载器<code>SMAPI</code>，解压<code>SMAPI-4.1.7-installer.zip</code>后根据操作系统运行相应的脚本即可。</p><p>一个压缩包是一个mod，解压后将文件夹拖入<code>星露谷物语</code>游戏安装路径下的<code>mod</code>文件夹即可。</p><p>有些mod需要安装必要的前置mod。</p></blockquote><p>mac启动游戏时如果出现以下报错，需要将<code>StardewModdingAPI</code>从废纸篓中移回原位，添加文件后缀<code>.app</code>，右键打开<code>显示简介</code>，勾选<code>恶意软件保护覆盖</code>，然后把后缀还原即可正常启动游戏。</p><p><img src="https://minio.drivefly.cn/image-hoshino/blog/2025/03/08/image-20250308165530764.png" alt="image-20250308165530764"></p><h1 id="推荐mod列表"><a href="#推荐mod列表" class="headerlink" title="推荐mod列表"></a>推荐mod列表</h1><ul><li>Generic Mod Config Menu 通用Mod配置级菜单 5098</li><li>AutomaticGates 自动栅栏 3109</li><li>ChestsAnywhere 远程宝箱仓库 518</li><li>EideeEasyFishing 秒钓鱼 4806&#x2F;20391</li><li>LookupAnything 查看所有信息 541</li><li>PassableCrops 穿透作物 15223</li><li>UIInfoSuite2 显示当日信息 <a href="https://github.com/Annosz/UIInfoSuite2/releases">https://github.com/Annosz/UIInfoSuite2/releases</a></li><li>VisibleFish 显示当前可以钓的鱼 8897</li><li>ZoomLevel 增加视距 7363</li><li>PonyWeightLossProgram 小马减肥 1232</li><li>FastAnimations 动作加速 1089</li><li>LadderLocator 显示矿洞楼梯位置 3094</li><li>Chests Anywhere 随处打开箱子 518</li><li>Visible FIsh 可见鱼 8897</li><li>Automate 自动化 1063</li><li>SkullCavernElevator 骷髅矿洞电梯 963</li><li>Fast Animations 快速动画 1089</li><li>Tractor Mod 拖拉机 1401</li><li>CJB Cheats Menu CJB作弊菜单 4</li><li>CJB Item Spawner CJB扳手：93</li></ul>]]></content>
     
     
       
