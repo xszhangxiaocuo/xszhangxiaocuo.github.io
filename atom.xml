@@ -6,7 +6,7 @@
   <link href="http://blog.hoshinobunny.xyz/atom.xml" rel="self"/>
   
   <link href="http://blog.hoshinobunny.xyz/"/>
-  <updated>2025-03-17T01:53:16.566Z</updated>
+  <updated>2025-03-17T02:24:34.141Z</updated>
   <id>http://blog.hoshinobunny.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://blog.hoshinobunny.xyz/2025/03/16/%E9%83%A8%E7%BD%B2UniswapV2/"/>
     <id>http://blog.hoshinobunny.xyz/2025/03/16/%E9%83%A8%E7%BD%B2UniswapV2/</id>
     <published>2025-03-16T12:25:05.000Z</published>
-    <updated>2025-03-17T01:53:16.566Z</updated>
+    <updated>2025-03-17T02:24:34.141Z</updated>
     
     <content type="html"><![CDATA[<h1 id="选择Foundry本地测试网"><a href="#选择Foundry本地测试网" class="headerlink" title="选择Foundry本地测试网"></a>选择Foundry本地测试网</h1><p><img src="https://minio.drivefly.cn/image-hoshino/blog/2025/03/16/image.png" alt="image.png"></p><h1 id="添加获取INIT-CODE的代码"><a href="#添加获取INIT-CODE的代码" class="headerlink" title="添加获取INIT_CODE的代码"></a>添加获取INIT_CODE的代码</h1><p>在<code>UniswapV2Factory.sol</code> 合约中添加以下代码用来获取<code>INIT_CODE</code> ，然后切换编译器版本为<code>0.5.16</code> ，编译合约后直接部署即可。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(UniswapV2Pair).creationCode));</span><br></pre></td></tr></table></figure><p><img src="https://minio.drivefly.cn/image-hoshino/blog/2025/03/16/image%201.png" alt="image.png"></p><h1 id="获取INIT-CODE"><a href="#获取INIT-CODE" class="headerlink" title="获取INIT_CODE"></a>获取INIT_CODE</h1><p>部署好<code>UniswapV2Factory</code>合约后，调用获取<code>INIT_CODE</code> 的值。</p><p><img src="https://minio.drivefly.cn/image-hoshino/blog/2025/03/16/image%202.png" alt="image.png"></p><h1 id="替换INIT-CODE"><a href="#替换INIT-CODE" class="headerlink" title="替换INIT_CODE"></a>替换INIT_CODE</h1><p>找到<code>v2-periphery</code> 下的<code>UniswapV2Library.sol</code> 文件，搜索<code>hex</code> ，修改<code>pairFor</code> 函数中对应的哈希值。</p><p><img src="https://minio.drivefly.cn/image-hoshino/blog/2025/03/16/image%203.png" alt="image.png"></p><h1 id="部署WETH以及router合约"><a href="#部署WETH以及router合约" class="headerlink" title="部署WETH以及router合约"></a>部署WETH以及router合约</h1><p><img src="https://minio.drivefly.cn/image-hoshino/blog/2025/03/16/image%204.png" alt="image.png"></p><h1 id="在Foundry测试文件中如何调用合约？"><a href="#在Foundry测试文件中如何调用合约？" class="headerlink" title="在Foundry测试文件中如何调用合约？"></a>在Foundry测试文件中如何调用合约？</h1><p>使用 <code>vm.createSelectFork(&quot;http://127.0.0.1:8545&quot;);</code> 连接到本地测试网，即可直接用刚刚部署好的合约地址调用合约。</p>]]></content>
     
@@ -36,11 +36,11 @@
     <category term="Coding" scheme="http://blog.hoshinobunny.xyz/categories/Coding/"/>
     
     
+    <category term="踩坑" scheme="http://blog.hoshinobunny.xyz/tags/%E8%B8%A9%E5%9D%91/"/>
+    
     <category term="区块链" scheme="http://blog.hoshinobunny.xyz/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
     
     <category term="Solidity" scheme="http://blog.hoshinobunny.xyz/tags/Solidity/"/>
-    
-    <category term="踩坑记录" scheme="http://blog.hoshinobunny.xyz/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/"/>
     
     <category term="uniswap" scheme="http://blog.hoshinobunny.xyz/tags/uniswap/"/>
     
@@ -152,9 +152,9 @@
     <category term="Coding" scheme="http://blog.hoshinobunny.xyz/categories/Coding/"/>
     
     
-    <category term="踩坑" scheme="http://blog.hoshinobunny.xyz/tags/%E8%B8%A9%E5%9D%91/"/>
-    
     <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    <category term="踩坑" scheme="http://blog.hoshinobunny.xyz/tags/%E8%B8%A9%E5%9D%91/"/>
     
     <category term="前端" scheme="http://blog.hoshinobunny.xyz/tags/%E5%89%8D%E7%AB%AF/"/>
     
