@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>浅谈区块链和WEB3 | Hoshino Bunny‘s Blog</title><meta name="author" content="HoshinoBunny"><meta name="copyright" content="HoshinoBunny"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="什么是区块链？区块链技术是一种去中心化、分布式的账本技术，它能够安全地记录交易信息，并防止数据被篡改。你可以把它想象成一本“公开账本”，所有参与者都可以查看，但没有人可以随意更改过去的记录。  区块链的基本概念 区块（Block）：包含若干条交易记录的数据包。 链（Chain）：每个区块通过加密哈希链接在前一个区块之后，形成一个链条。 去中心化：没有中心服务器，数据分布在多个节点上。 共识机制：网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈区块链和WEB3">
+<meta property="og:url" content="http://blog.hoshinobunny.xyz/2025/04/08/%E6%B5%85%E8%B0%88%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8EWEB3/index.html">
+<meta property="og:site_name" content="Hoshino Bunny‘s Blog">
+<meta property="og:description" content="什么是区块链？区块链技术是一种去中心化、分布式的账本技术，它能够安全地记录交易信息，并防止数据被篡改。你可以把它想象成一本“公开账本”，所有参与者都可以查看，但没有人可以随意更改过去的记录。  区块链的基本概念 区块（Block）：包含若干条交易记录的数据包。 链（Chain）：每个区块通过加密哈希链接在前一个区块之后，形成一个链条。 去中心化：没有中心服务器，数据分布在多个节点上。 共识机制：网">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://minio.drivefly.cn/image-hoshino/blog/2025/04/08/blockchain-icon-design-cryptocurrency-digital-logo-vector.jpg">
+<meta property="article:published_time" content="2025-04-08T10:03:03.000Z">
+<meta property="article:modified_time" content="2025-04-08T10:07:44.120Z">
+<meta property="article:author" content="HoshinoBunny">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="DAPP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://minio.drivefly.cn/image-hoshino/blog/2025/04/08/blockchain-icon-design-cryptocurrency-digital-logo-vector.jpg"><link rel="shortcut icon" href="https://minio.drivefly.cn:443/image-hoshino/blog/2024/11/25/hoshino48x48.png"><link rel="canonical" href="http://blog.hoshinobunny.xyz/2025/04/08/%E6%B5%85%E8%B0%88%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8EWEB3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '浅谈区块链和WEB3',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-04-08 18:07:44'
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Hoshino Bunny‘s Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://minio.drivefly.cn:443/image-hoshino/blog/2024/11/25/hoshino.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/atom.xml"><i class="fa-fw fas fa-rss"></i><span> RSS</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://minio.drivefly.cn:443/image-hoshino/blog/2025/04/08/blockchain-icon-design-cryptocurrency-digital-logo-vector.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hoshino Bunny‘s Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">浅谈区块链和WEB3</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/atom.xml"><i class="fa-fw fas fa-rss"></i><span> RSS</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">浅谈区块链和WEB3</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-08T10:03:03.000Z" title="发表于 2025-04-08 18:03:03">2025-04-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-08T10:07:44.120Z" title="更新于 2025-04-08 18:07:44">2025-04-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Coding/">Coding</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="什么是区块链？"><a href="#什么是区块链？" class="headerlink" title="什么是区块链？"></a>什么是区块链？</h1><p>区块链技术是一种<strong>去中心化</strong>、<strong>分布式</strong>的<strong>账本技术</strong>，它能够安全地记录交易信息，并防止数据被篡改。你可以把它想象成一本“公开账本”，所有参与者都可以查看，但没有人可以随意更改过去的记录。</p>
+<hr>
+<h3 id="区块链的基本概念"><a href="#区块链的基本概念" class="headerlink" title="区块链的基本概念"></a><strong>区块链的基本概念</strong></h3><ul>
+<li><strong>区块（Block）</strong>：包含若干条交易记录的数据包。</li>
+<li><strong>链（Chain）</strong>：每个区块通过加密哈希链接在前一个区块之后，形成一个链条。</li>
+<li><strong>去中心化</strong>：没有中心服务器，数据分布在多个节点上。</li>
+<li><strong>共识机制</strong>：网络节点之间达成一致的方法，比如工作量证明（PoW）、权益证明（PoS）等。</li>
+<li><strong>不可篡改性</strong>：一旦数据写入区块链，就几乎不可能更改。</li>
+</ul>
+<hr>
+<h3 id="区块链是如何工作的？"><a href="#区块链是如何工作的？" class="headerlink" title="区块链是如何工作的？"></a><strong>区块链是如何工作的？</strong></h3><ol>
+<li><p><strong>发起交易</strong>：</p>
+<p> 用户在区块链网络中发起一个交易，比如转账。</p>
+</li>
+<li><p><strong>交易广播</strong>：</p>
+<p> 这笔交易会广播到整个网络，所有节点都能接收到。</p>
+</li>
+<li><p><strong>交易验证</strong>：</p>
+<p> 节点通过算法验证交易是否合法，例如：</p>
+<ul>
+<li>发送方是否有足够的余额；</li>
+<li>数字签名是否有效。</li>
+</ul>
+</li>
+<li><p><strong>打包成区块</strong>：</p>
+<p> 验证通过的交易会被打包进一个新区块。</p>
+</li>
+<li><p><strong>达成共识</strong>：</p>
+<p> 通过共识机制选择一个节点把新区块加入链上（例如通过计算难题来竞争记账权）。</p>
+</li>
+<li><p><strong>写入区块链</strong>：</p>
+<p> 区块一旦被添加，就广播到全网，所有节点都同步更新。</p>
+</li>
+<li><p><strong>不可篡改记录</strong>：</p>
+<p> 每个区块都包含前一个区块的哈希值，如果试图篡改历史数据，就会破坏整个链。</p>
+</li>
+</ol>
+<hr>
+<h3 id="区块链的主要特性"><a href="#区块链的主要特性" class="headerlink" title="区块链的主要特性"></a><strong>区块链的主要特性</strong></h3><ul>
+<li><strong>透明性</strong>：交易对所有人可见。</li>
+<li><strong>安全性</strong>：通过加密保障数据安全。</li>
+<li><strong>去信任</strong>：不需要信任任何单一中介机构。</li>
+<li><strong>可追溯性</strong>：所有交易都有完整记录。</li>
+</ul>
+<p><img src="https://minio.drivefly.cn/image-hoshino/blog/2025/04/08/image.png" alt="image.png"></p>
+<h2 id="什么是挖矿？"><a href="#什么是挖矿？" class="headerlink" title="什么是挖矿？"></a>什么是挖矿？</h2><p>挖矿一开始是指在<code>POW</code>共识机制下，通过计算来争夺记账权，并获得加密货币奖励的过程。</p>
+<p>挖矿本质上就是将交易打包成一个区块然后出块的过程，而打包交易的人就叫做矿工。至于由谁来打包交易，这就由共识机制决定。</p>
+<h2 id="共识机制"><a href="#共识机制" class="headerlink" title="共识机制"></a>共识机制</h2><blockquote>
+<p><a href="https://blog.hoshinobunny.xyz/2024/11/13/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%AD%E7%9A%84%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/">https://blog.hoshinobunny.xyz/2024/11/13/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%AD%E7%9A%84%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/</a></p>
+</blockquote>
+<p>共识机制作用是用来选出每一个区块的出块人，并对打包的区块进行验证，区块经过全网络验证通过后就会正式上链。</p>
+<h3 id="BTC——PoW（Proof-of-Work-工作量证明）"><a href="#BTC——PoW（Proof-of-Work-工作量证明）" class="headerlink" title="BTC——PoW（Proof of Work 工作量证明）"></a>BTC——PoW（Proof of Work 工作量证明）</h3><ul>
+<li><strong>原理</strong>：矿工通过消耗大量计算力解决复杂数学难题，谁先解出，谁就可以打包新区块。</li>
+<li>安全性高，但是能耗大（电力消耗高）、交易速度慢（约 10 分钟&#x2F;块）、扩展性差。</li>
+<li><strong>特点：</strong>完全去中心化、简单但安全、非常抗审查、所有人都可以加入挖矿。</li>
+</ul>
+<h3 id="Ethereum——PoS（Proof-of-Stack-权益证明）"><a href="#Ethereum——PoS（Proof-of-Stack-权益证明）" class="headerlink" title="Ethereum——PoS（Proof of Stack 权益证明）"></a>Ethereum——PoS（Proof of Stack 权益证明）</h3><ul>
+<li><strong>原理</strong>：验证者通过质押 ETH（至少 32 个）参与共识，被随机选中打包区块。</li>
+<li>惩罚作恶节点，奖励诚实节点（利息+手续费）</li>
+<li><strong>特点：</strong>能耗极低（几乎为零）、交易时间缩短（&lt; 15 秒）、更容易扩展（未来支持分片）、去中心化程度仍在优化中（目前验证者多由大机构控制）</li>
+</ul>
+<h3 id="Solana——PoH（Proof-of-History-历史证明）-PoS-混合机制"><a href="#Solana——PoH（Proof-of-History-历史证明）-PoS-混合机制" class="headerlink" title="Solana——PoH（Proof of History 历史证明） + PoS 混合机制"></a><strong>Solana——PoH（Proof of History 历史证明） + PoS 混合机制</strong></h3><ul>
+<li><strong>PoH（历史证明）</strong> 是一种创新机制，用来：<ul>
+<li>给所有交易事件生成<strong>可验证的时间戳</strong></li>
+<li>加快验证速度（减少全网同步等待）</li>
+</ul>
+</li>
+<li><strong>PoS（权益证明）</strong>：参与验证的节点仍需质押 SOL 并通过 PoS 来选出负责打包区块的节点。</li>
+<li><strong>特点：</strong>超高吞吐量（官方称能达 65,000 TPS）、非常快（区块时间约 400ms）、低手续费、中心化争议较大（节点门槛高，停机事件多）</li>
+</ul>
+<blockquote>
+<p>所有节点都能接收并验证新区块，它们会检查区块内的交易和状态是否和本地计算结果一致，如果不一致，就会拒绝该区块并可能惩罚作恶者。<br>在<code>Ethereum</code>中只有在全网络2&#x2F;3的节点投票确认区块的有效性后才会上链。<br>在<code>Solana</code>中，通过<code>PoH</code>机制，使得所有节点可以快速验证区块，而且它不需要全网达成共识，只要验证者节点达成一致就可以进行下一轮出块。</p>
+</blockquote>
+<h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p>智能合约是存储在链上的程序，是代码和状态数据的集合。合约程序只能被动执行。</p>
+<p>合约程序上链后是不可更改的，但是如果合约支持升级，则该合约逻辑是可以改变的（合约代码不变）。</p>
+<p><img src="https://minio.drivefly.cn/image-hoshino/blog/2025/04/08/image%201.png" alt="image.png"></p>
+<h2 id="合约安全"><a href="#合约安全" class="headerlink" title="合约安全"></a>合约安全</h2><p>智能合约安全是指：确保合约行为符合预期、不会被恶意攻击、不会造成资金被盗或永久锁死。</p>
+<p>合约安全是智能合约开发中<strong>最关键的一环</strong>。因为一旦部署，合约代码就不能随意修改，<strong>漏洞将导致不可挽回的资金损失。</strong></p>
+<p>最经典的就是一个例子就是<a href="https://blog.hoshinobunny.xyz/2025/03/10/%E9%87%8D%E5%85%A5%E6%94%BB%E5%87%BB/"><code>重入攻击</code></a> 。</p>
+<h2 id="DAPP架构"><a href="#DAPP架构" class="headerlink" title="DAPP架构"></a>DAPP架构</h2><p>DAPP 是运行在区块链上的“去中心化应用”，通过智能合约处理逻辑，前端通常是网页或移动端，用户通过钱包进行交互。</p>
+<h3 id="1-前端层（Web-或-App）"><a href="#1-前端层（Web-或-App）" class="headerlink" title="1. 前端层（Web 或 App）"></a><strong>1. 前端层（Web 或 App）</strong></h3><ul>
+<li>通常用 React、Vue、Next.js 等构建</li>
+<li>与用户进行交互（连接钱包、发交易、显示状态等）</li>
+<li>借助库如：<ul>
+<li>web3.js、ethers.js、viem.js（与区块链交互）</li>
+<li>wagmi、web3modal（钱包连接 UI）</li>
+</ul>
+</li>
+<li>调用智能合约的方法（通过JSON RPC）</li>
+</ul>
+<hr>
+<h3 id="2-智能合约层（部署在区块链上）"><a href="#2-智能合约层（部署在区块链上）" class="headerlink" title="2. 智能合约层（部署在区块链上）"></a><strong>2. 智能合约层（部署在区块链上）</strong></h3><ul>
+<li>用 Solidity 等语言编写，部署在如以太坊、Polygon、Solana 等链上</li>
+<li>包含业务逻辑，比如：<ul>
+<li>转账、投票、交易撮合</li>
+<li>NFT 铸造</li>
+<li>DAO 投票治理</li>
+</ul>
+</li>
+<li>所有操作都公开、不可篡改</li>
+</ul>
+<hr>
+<h3 id="3-数据与存储层"><a href="#3-数据与存储层" class="headerlink" title="3. 数据与存储层"></a><strong>3. 数据与存储层</strong></h3><p><strong>On-chain（链上数据）：</strong></p>
+<ul>
+<li>交易记录</li>
+<li>状态变量</li>
+<li>合约数据（如余额、NFT 拥有者）</li>
+</ul>
+<p><strong>Off-chain（链下存储）：</strong></p>
+<ul>
+<li>IPFS &#x2F; Arweave：存储图片、视频、JSON 元数据等大文件</li>
+<li>The Graph：提供查询索引服务</li>
+<li>后端服务器：仅限缓存、不处理核心逻辑</li>
+</ul>
+<h2 id="区块链浏览器"><a href="#区块链浏览器" class="headerlink" title="区块链浏览器"></a>区块链浏览器</h2><p>区块链浏览器（Blockchain Explorer）是一个用来<strong>查看区块链上所有交易和区块信息的工具</strong>。它就像是“区块链的搜索引擎”，让用户可以透明地查阅某条区块链的运行情况。</p>
+<blockquote>
+<p>btc:<a target="_blank" rel="noopener" href="https://www.oklink.com/zh-hans/btc">https://www.oklink.com/zh-hans/btc</a><br>ethereum:<a target="_blank" rel="noopener" href="https://etherscan.io/">https://etherscan.io/</a><br>solana:<a target="_blank" rel="noopener" href="https://solscan.io/">https://solscan.io/</a></p>
+</blockquote>
+<p><strong>区块链浏览器常见的功能：</strong></p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查看区块</td>
+<td>每个区块的编号、高度、时间戳、打包交易等信息</td>
+</tr>
+<tr>
+<td>查询交易</td>
+<td>通过交易哈希查到交易的状态、金额、发送方、接收方等</td>
+</tr>
+<tr>
+<td>查看钱包地址</td>
+<td>查看某个地址的余额、交易记录、代币持有情况等</td>
+</tr>
+<tr>
+<td>查看网络数据</td>
+<td>如出块速度、交易手续费、网络难度、活跃地址数等统计</td>
+</tr>
+<tr>
+<td>查看智能合约</td>
+<td>查看已部署合约的代码、调用情况、交互记录等（支持智能合约的平台，如以太坊）</td>
+</tr>
+</tbody></table>
+<h1 id="什么是WEB3？"><a href="#什么是WEB3？" class="headerlink" title="什么是WEB3？"></a>什么是WEB3？</h1><table>
+<thead>
+<tr>
+<th><strong>阶段</strong></th>
+<th><strong>简介</strong></th>
+<th><strong>特点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WEB1.0</td>
+<td>静态网页</td>
+<td>用户只能浏览不能互动</td>
+</tr>
+<tr>
+<td>WEB2.0</td>
+<td>动态网页</td>
+<td>中心化平台、数据归服务提供商所有、网页可互动</td>
+</tr>
+<tr>
+<td>WEB3.0</td>
+<td>去中心化互联网</td>
+<td>用户拥有数据、基于区块链运行</td>
+</tr>
+</tbody></table>
+<p>WEB2.0是数据的流动，用户之间可以转移数据。</p>
+<p>WEB3.0是价值的流动，用户之间可以通过<code>加密货币</code>（可以认为是有价值的数据）转移价值。</p>
+<h2 id="WEB3-的核心理念"><a href="#WEB3-的核心理念" class="headerlink" title="WEB3 的核心理念"></a><strong>WEB3 的核心理念</strong></h2><ol>
+<li><strong>去中心化</strong>：不依赖中心化公司（如 Facebook、Google），而是运行在区块链或分布式网络上。</li>
+<li><strong>用户数据主权</strong>：用户拥有并控制自己的数据（谁有私钥谁就可以控制这个帐户的数据）。</li>
+<li><strong>加密身份认证</strong>：用钱包地址代替用户名密码。</li>
+<li><strong>价值互联网</strong>：内建支付能力（加密货币），网络价值可直接转移。</li>
+<li><strong>开放协议</strong>：项目之间可以自由组合。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://blog.hoshinobunny.xyz">HoshinoBunny</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://blog.hoshinobunny.xyz/2025/04/08/%E6%B5%85%E8%B0%88%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8EWEB3/">http://blog.hoshinobunny.xyz/2025/04/08/%E6%B5%85%E8%B0%88%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8EWEB3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://blog.hoshinobunny.xyz" target="_blank">Hoshino Bunny‘s Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">学习记录</a><a class="post-meta__tags" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><a class="post-meta__tags" href="/tags/DAPP/">DAPP</a></div><div class="post-share"><div class="social-share" data-image="https://minio.drivefly.cn:443/image-hoshino/blog/2025/04/08/blockchain-icon-design-cryptocurrency-digital-logo-vector.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/03/16/%E9%83%A8%E7%BD%B2UniswapV2/" title="部署UniswapV2"><img class="cover" src="https://minio.drivefly.cn:443/image-hoshino/blog/2025/03/16/uniswap.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">部署UniswapV2</div></div><div class="info-2"><div class="info-item-1">选择Foundry本地测试网 添加获取INIT_CODE的代码在UniswapV2Factory.sol 合约中添加以下代码用来获取INIT_CODE ，然后切换编译器版本为0.5.16 ，编译合约后直接部署即可。 1bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(UniswapV2Pair).creationCode));   获取INIT_CODE部署好UniswapV2Factory合约后，调用获取INIT_CODE 的值。  替换INIT_CODE找到v2-periphery 下的UniswapV2Library.sol 文件，搜索hex ，修改pairFor 函数中对应的哈希值。  部署WETH以及router合约 在Foundry测试文件中如何调用合约？使用 vm.createSelectFork(&quot;http://127.0.0.1:8545&quot;); 连接到本地测试网，即可直接用刚刚部署好的合约地址调用合约。 </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/02/12/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%90%88%E7%BA%A6/" title="部署第一个合约"><img class="cover" src="https://minio.drivefly.cn:443/image-hoshino/blog/2025/02/12/ethereum.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-12</div><div class="info-item-2">部署第一个合约</div></div><div class="info-2"><div class="info-item-1">钱包转账  部署第一个合约创建一个 counter.sol 文件，写入 Solidity 代码，如下： 1234567891011121314151617//SPDX-License-Identifier: MITpragma solidity ^0.8.0;contract Counter &#123;    uint256 internal count = 0;    constructor() &#123;&#125;    function get() public view returns (uint256) &#123;        return count;    &#125;    function add(uint256 x) public &#123;        count += x;    &#125;&#125;  选择合适的编译器版本进行编译。  在部署页面选择 Injected Provider - MetaMask ，这将使用MetaMask作为Web3 Provider...</div></div></div></a><a class="pagination-related" href="/2025/03/10/%E9%87%8D%E5%85%A5%E6%94%BB%E5%87%BB/" title="重入攻击"><img class="cover" src="https://minio.drivefly.cn:443/image-hoshino/blog/2025/02/12/ethereum.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-10</div><div class="info-item-2">重入攻击</div></div><div class="info-2"><div class="info-item-1">什么是重入攻击？重入攻击（Reentrancy Attack）是区块链智能合约中的一种常见安全漏洞，尤其在以太坊等支持智能合约的区块链平台中较为突出。它发生在一个合约在调用另一个合约（或地址）的函数时，未更新自身状态之前，对方合约又重新调用原合约的函数，从而导致逻辑被重复执行，进而被恶意利用。 举一个经典例子12345678910111213141516171819contract Vulnerable &#123;    mapping(address =&gt; uint) public balances;    function withdraw() public &#123;        uint amount = balances[msg.sender];        require(amount &gt; 0);        // 向用户发送 ETH        (bool success, ) = msg.sender.call&#123;value: amount&#125;(&quot;&quot;);        require(success);...</div></div></div></a><a class="pagination-related" href="/2024/11/30/Golang%E4%BD%BF%E7%94%A8Protocol%20Buffers%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8C%97/" title="Golang使用Protocol Buffers不完全指北"><img class="cover" src="https://minio.drivefly.cn:443/image-hoshino/blog/2024/11/30/golang.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-30</div><div class="info-item-2">Golang使用Protocol Buffers不完全指北</div></div><div class="info-2"><div class="info-item-1">Protocol Buffers V3 语法指南Protocol Buffers V3中文语法指南[翻译] - 李文周的博客 使用指南安装protobuf从gtihub仓库下载对应操作系统的预编译好的二进制文件。 我下载的是M芯片的Mac系统版本：  其中：  bin 目录下的 protoc 是可执行文件。 include 目录下的是 google 定义的.proto文件。  别忘了将文件夹下的 bin 目录添加到环境变量中。 protoc生成Go和gRPC代码protocol buffer编译器需要一个插件来根据提供的proto文件生成 Go 代码，使用下面的命令安装插件。 1go install google.golang.org/protobuf/cmd/protoc-gen-go@latest  同样，生成gRPC代码也需要用到一个插件。 1go install...</div></div></div></a><a class="pagination-related" href="/2024/11/30/for%20range%E7%9A%84%E9%97%AD%E5%8C%85%E9%97%AE%E9%A2%98/" title="for range的闭包问题"><img class="cover" src="https://minio.drivefly.cn:443/image-hoshino/blog/2024/11/30/golang.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-30</div><div class="info-item-2">for range的闭包问题</div></div><div class="info-2"><div class="info-item-1">for range的闭包问题在之前，Go中的for range语句中用短声明形式定义的循环变量是整个循环共享同一个，这就导致在for range语句中的闭包在循环结束后引用的该循环变量最后都会变为同一个值。 1234567891011func main() &#123;	var wg sync.WaitGroup	for i := 0; i &lt; 3; i++ &#123;		wg.Add(1)		go func() &#123;			defer wg.Done()			fmt.Println(i)		&#125;()	&#125;	wg.Wait()&#125;  例如在上面的代码中，最后输出的结果为： 123333  这是因为闭包实际上捕获的是对变量 i 的引用，在闭包函数运行时，循环语句已经结束，i 的值已经变为了3，所以输出的结果自然都是3。 如果要实现预期输出，则需要使每个闭包函数的引用各不相同，修改如下： 123456789101112func main() &#123;	var wg sync.WaitGroup	for i := 0; i &lt; 3;...</div></div></div></a><a class="pagination-related" href="/2024/11/24/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" title="微服务架构介绍"><img class="cover" src="https://minio.drivefly.cn:443/image-hoshino/blog/2024/11/25/image-20241124201751498.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-24</div><div class="info-item-2">微服务架构介绍</div></div><div class="info-2"><div class="info-item-1">SOA架构SOA（Service-Oriented Architecture，面向服务的架构）是一种高层级的 架构设计理念，可通过在网络上使用基于通用通信语言的服务接口，让软件组件可重复使用。它使用称为服务的软件组件来创建业务应用程序。每项服务提供一种业务能力，并且服务也可以跨平台和语言相互通信。开发人员使用 SOA 来重用不同系统中的服务，或者组合几个独立的服务来执行复杂的任务。 ESB（Enterprise Service Bus，企业服务总线）把企业中各个不同的服务连接在一起。就像计算机总线一样，把计算机的各个不同的设备连接在一起。 因为不同的服务是使用不同的技术实现的，各个独立的服务是异构的，如果没有统一的标准，则各个异构系统对外提供的接口是各式各样的。SOA 使用 ESB 来屏蔽异构系统对外提供各种不同的接口方式，以此来达到服务间高效的互联互通。ESB通过使用标准网络协议（如 SOAP、XML、JSON、MQ ）来开放服务以发送请求或访问数据，实现与各种系统间的协议转换、数据转换、透明的动态路由等功能，消除了开发人员必须从头开始进行集成的困扰。 采用 SOA...</div></div></div></a><a class="pagination-related" href="/2024/12/01/%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88%E7%9A%84%E8%BD%AC%E6%8D%A2/" title="结构体指针的转换"><img class="cover" src="https://minio.drivefly.cn:443/image-hoshino/blog/2024/11/30/golang.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-01</div><div class="info-item-2">结构体指针的转换</div></div><div class="info-2"><div class="info-item-1">问题：起因是在水群的时候看到这么个问题： 12345678910111213141516171819202122232425262728293031package mainimport (	&quot;fmt&quot;	&quot;unsafe&quot;)type Reception struct &#123;	p   unsafe.Pointer	len int&#125;func main() &#123;	type A struct &#123;		s string	&#125;	m := make(map[string]struct&#123;&#125;)	tmp := A&#123;s: &quot;hello&quot;&#125;	m[tmp.s] = struct&#123;&#125;&#123;&#125;	// 由于 A 结构体的字段 s 是一个字符串类型，所以在将 tmp.s 作为 map 的 key 时，会将字符串的地址作为 key，而不是字符串的值	fmt.Printf(&quot;tmp.s: %+v\n&quot;,...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://minio.drivefly.cn:443/image-hoshino/blog/2024/11/25/hoshino.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">HoshinoBunny</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xszhangxiaocuo"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xszhangxiaocuo" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zyj6659644@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://xszhangxiaocuo.github.io/atom.xml" target="_blank" title=""><i class="fas fa-rss"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8C%BA%E5%9D%97%E9%93%BE%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">什么是区块链？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.0.1.</span> <span class="toc-text">区块链的基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%EF%BC%9F"><span class="toc-number">1.0.2.</span> <span class="toc-text">区块链是如何工作的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E4%B8%BB%E8%A6%81%E7%89%B9%E6%80%A7"><span class="toc-number">1.0.3.</span> <span class="toc-text">区块链的主要特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%96%E7%9F%BF%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">什么是挖矿？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B1%E8%AF%86%E6%9C%BA%E5%88%B6"><span class="toc-number">1.2.</span> <span class="toc-text">共识机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BTC%E2%80%94%E2%80%94PoW%EF%BC%88Proof-of-Work-%E5%B7%A5%E4%BD%9C%E9%87%8F%E8%AF%81%E6%98%8E%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">BTC——PoW（Proof of Work 工作量证明）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ethereum%E2%80%94%E2%80%94PoS%EF%BC%88Proof-of-Stack-%E6%9D%83%E7%9B%8A%E8%AF%81%E6%98%8E%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">Ethereum——PoS（Proof of Stack 权益证明）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solana%E2%80%94%E2%80%94PoH%EF%BC%88Proof-of-History-%E5%8E%86%E5%8F%B2%E8%AF%81%E6%98%8E%EF%BC%89-PoS-%E6%B7%B7%E5%90%88%E6%9C%BA%E5%88%B6"><span class="toc-number">1.2.3.</span> <span class="toc-text">Solana——PoH（Proof of History 历史证明） + PoS 混合机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6"><span class="toc-number">1.3.</span> <span class="toc-text">智能合约</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8"><span class="toc-number">1.4.</span> <span class="toc-text">合约安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DAPP%E6%9E%B6%E6%9E%84"><span class="toc-number">1.5.</span> <span class="toc-text">DAPP架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%89%8D%E7%AB%AF%E5%B1%82%EF%BC%88Web-%E6%88%96-App%EF%BC%89"><span class="toc-number">1.5.1.</span> <span class="toc-text">1. 前端层（Web 或 App）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%B1%82%EF%BC%88%E9%83%A8%E7%BD%B2%E5%9C%A8%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8A%EF%BC%89"><span class="toc-number">1.5.2.</span> <span class="toc-text">2. 智能合约层（部署在区块链上）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%AD%98%E5%82%A8%E5%B1%82"><span class="toc-number">1.5.3.</span> <span class="toc-text">3. 数据与存储层</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="toc-number">1.6.</span> <span class="toc-text">区块链浏览器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFWEB3%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">什么是WEB3？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB3-%E7%9A%84%E6%A0%B8%E5%BF%83%E7%90%86%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">WEB3 的核心理念</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/04/08/%E6%B5%85%E8%B0%88%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8EWEB3/" title="浅谈区块链和WEB3"><img src="https://minio.drivefly.cn:443/image-hoshino/blog/2025/04/08/blockchain-icon-design-cryptocurrency-digital-logo-vector.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="浅谈区块链和WEB3"/></a><div class="content"><a class="title" href="/2025/04/08/%E6%B5%85%E8%B0%88%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8EWEB3/" title="浅谈区块链和WEB3">浅谈区块链和WEB3</a><time datetime="2025-04-08T10:03:03.000Z" title="发表于 2025-04-08 18:03:03">2025-04-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/16/%E9%83%A8%E7%BD%B2UniswapV2/" title="部署UniswapV2"><img src="https://minio.drivefly.cn:443/image-hoshino/blog/2025/03/16/uniswap.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="部署UniswapV2"/></a><div class="content"><a class="title" href="/2025/03/16/%E9%83%A8%E7%BD%B2UniswapV2/" title="部署UniswapV2">部署UniswapV2</a><time datetime="2025-03-16T12:25:05.000Z" title="发表于 2025-03-16 20:25:05">2025-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/10/%E9%87%8D%E5%85%A5%E6%94%BB%E5%87%BB/" title="重入攻击"><img src="https://minio.drivefly.cn:443/image-hoshino/blog/2025/02/12/ethereum.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重入攻击"/></a><div class="content"><a class="title" href="/2025/03/10/%E9%87%8D%E5%85%A5%E6%94%BB%E5%87%BB/" title="重入攻击">重入攻击</a><time datetime="2025-03-10T10:04:52.000Z" title="发表于 2025-03-10 18:04:52">2025-03-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/12/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%90%88%E7%BA%A6/" title="部署第一个合约"><img src="https://minio.drivefly.cn:443/image-hoshino/blog/2025/02/12/ethereum.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="部署第一个合约"/></a><div class="content"><a class="title" href="/2025/02/12/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%90%88%E7%BA%A6/" title="部署第一个合约">部署第一个合约</a><time datetime="2025-02-12T10:04:48.000Z" title="发表于 2025-02-12 18:04:48">2025-02-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/04/v-deep%E7%9A%84%E4%BD%BF%E7%94%A8%E8%B8%A9%E5%9D%91/" title="v-deep的使用踩坑"><img src="https://minio.drivefly.cn:443/image-hoshino/blog/2025/01/04/vue.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="v-deep的使用踩坑"/></a><div class="content"><a class="title" href="/2025/01/04/v-deep%E7%9A%84%E4%BD%BF%E7%94%A8%E8%B8%A9%E5%9D%91/" title="v-deep的使用踩坑">v-deep的使用踩坑</a><time datetime="2025-01-04T10:25:22.000Z" title="发表于 2025-01-04 18:25:22">2025-01-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By HoshinoBunny</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
