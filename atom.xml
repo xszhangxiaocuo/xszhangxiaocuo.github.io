@@ -105,6 +105,36 @@
   </entry>
   
   <entry>
+    <title>以太坊中的Token与NFT</title>
+    <link href="http://blog.hoshinobunny.xyz/2025/02/18/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E7%9A%84Token%E4%B8%8ENFT/"/>
+    <id>http://blog.hoshinobunny.xyz/2025/02/18/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E7%9A%84Token%E4%B8%8ENFT/</id>
+    <published>2025-02-18T06:02:34.000Z</published>
+    <updated>2025-04-12T06:03:20.342Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="以太坊中的Token与NFT"><a href="#以太坊中的Token与NFT" class="headerlink" title="以太坊中的Token与NFT"></a>以太坊中的Token与NFT</h1><p>首先，Token与NFT都属于代币，每一条区块链都会有自己的原生代币（比如btc、eth、sol），而Token和NFT是建立在某个区块链平台（比如以太坊、Solana、BNB Chain 等）之上的<strong>数字资产</strong>或<strong>权益证明</strong>，它代表某种价值、权限、所有权或使用权。</p><h1 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h1><p>Token一般是指<code>同质化代币</code>，就像货币一样，每一枚Token都是一样的。</p><p>我们常说的发币，其实就是部署合约代码，而Token就是存储在合约里的数据。在以太坊中，所有Token合约都应遵循<a href="https://eips.ethereum.org/EIPS/eip-20">ERC-20标准</a>实现。</p><h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ol><li><strong>支付用途</strong>：某些项目的Token可以用于支付或手续费（例如BNB）。</li><li><strong>治理代币</strong>：持有者可以参与项目的投票、决策（例如UNI）。</li><li><strong>稳定币</strong>：如USDT、USDC，锚定美元等法币。</li><li><strong>奖励激励</strong>：用来奖励用户参与某些活动（如DeFi挖矿）。</li></ol><h1 id="NFT"><a href="#NFT" class="headerlink" title="NFT"></a>NFT</h1><p>NFT（Non-Fungible Token，<code>非同质化代币</code>）不像Token一样可以分割，可以认为每一个NFT就是一份独一无二的收藏品。</p><p>NFT 依靠区块链技术来确保其所有权记录的完整性和安全性。NFT 交易历史和所有者顺序的完整记录安全地存储在区块链上，每个参与节点都有助于确保其准确性并防止篡改。</p><p>虽然 NFT 的元数据、监管链以及真实性记录都存储在区块链上，但 NFT 所代表的媒体往往不是这样。区块链上存储大型图像文件会很昂贵，因此许多人选择在链外存储NFT的媒体文件，并通过NFT的内存储的链接指向该文件。</p><p>NFT的元数据通常通过<code>IPFS</code>或<code>Arweave</code>存储，它们都是去中心化的存储系统，每一个文件都有自己独特的哈希来标识。每个NFT都具有唯一的标识和属性，使其在区块链上具有独特性和不可互换性。</p><p>在以太坊中，所有NFT合约都应遵循<a href="https://eips.ethereum.org/EIPS/eip-721">ERC-721标准</a>实现。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;以太坊中的Token与NFT&quot;&gt;&lt;a href=&quot;#以太坊中的Token与NFT&quot; class=&quot;headerlink&quot; title=&quot;以太坊中的Token与NFT&quot;&gt;&lt;/a&gt;以太坊中的Token与NFT&lt;/h1&gt;&lt;p&gt;首先，Token与NFT都属于代币，每一条区</summary>
+      
+    
+    
+    
+    <category term="Coding" scheme="http://blog.hoshinobunny.xyz/categories/Coding/"/>
+    
+    
+    <category term="学习记录" scheme="http://blog.hoshinobunny.xyz/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    <category term="区块链" scheme="http://blog.hoshinobunny.xyz/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    <category term="Token" scheme="http://blog.hoshinobunny.xyz/tags/Token/"/>
+    
+    <category term="NFT" scheme="http://blog.hoshinobunny.xyz/tags/NFT/"/>
+    
+  </entry>
+  
+  <entry>
     <title>部署第一个合约</title>
     <link href="http://blog.hoshinobunny.xyz/2025/02/12/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%90%88%E7%BA%A6/"/>
     <id>http://blog.hoshinobunny.xyz/2025/02/12/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%90%88%E7%BA%A6/</id>
